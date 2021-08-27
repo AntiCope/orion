@@ -111,6 +111,7 @@ public class PopCounter extends Module {
         }
     }
 
+    //Credit to https://github.com/tyrannus00 for this chat detection method
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onMessageRecieve(ReceiveMessageEvent event) {
         String msg = event.message.getString();
