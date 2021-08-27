@@ -11,8 +11,8 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.util.Identifier;
 
 public class Logo extends HudElement {
-    private static final Identifier LOGO = new Identifier("orion", "assets/logos/logo.png");
-    private static final Identifier LOGO_FLAT = new Identifier("orion", "assets/logos/logo_flat.png");
+    private static final Identifier LOGO = new Identifier("orion", "logo.png");
+    private static final Identifier LOGO_FLAT = new Identifier("orion", "logo_flat.png");
 
     private static final RainbowColor RAINBOW = new RainbowColor();
 
