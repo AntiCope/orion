@@ -1,24 +1,24 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
+  "id": "orion",
   "version": "${version}",
-  "name": "Addon Template",
-  "description": "An addon template for the Meteor Addon API.",
+  "name": "Orion",
+  "description": "A combat addon for Meteor Client.",
   "authors": [
-    "seasnail8169"
+    "GhostTypes"
   ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/GhostTypes/orion"
   },
-  "icon": "assets/template/icon.png",
+  "icon": "assets/orion/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "meteordevelopment.addons.template.TemplateAddon"
+      "me.ghosttypes.orion.Orion"
     ]
   },
   "mixins": [
-    "template.mixins.json"
+    "orion.mixins.json"
   ],
   "depends": {
     "java": ">=16",
