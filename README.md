@@ -1,4 +1,7 @@
-![icon](https://user-images.githubusercontent.com/31757267/131068055-aad22529-9ec7-48f7-8f92-aed402ccf5b9.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/31757267/131068055-aad22529-9ec7-48f7-8f92-aed402ccf5b9.png" />
+</p>
+
 
 # Orion
 
