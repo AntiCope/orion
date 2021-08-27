@@ -90,6 +90,11 @@ public class AutoCityPlus extends Module {
             toggle();
             return;
         }
+        if (cityBlock == null && didFirstMine && autoToggle.get()) {
+            info("City complete.");
+            toggle();
+            return;
+        }
         if (AutomationUtils.canCrystal(target)) {
             if (cityBlock != null && sbInside.get()) placeCrystal(cityBlock.down());
             isMining = false;
@@ -104,7 +109,6 @@ public class AutoCityPlus extends Module {
             cityBlock = BlockHelper.getCityBlock(target, randomize.get());
         }
         if (cityBlock == null) {
-            if (didFirstMine && autoToggle.get()) error( "City complete.");
             error( "No city block available.");
             toggle();
             return; }

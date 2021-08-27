@@ -15,6 +15,7 @@ import meteordevelopment.meteorclient.renderer.ShapeMode;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.systems.modules.combat.CrystalAura;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.entity.EntityUtils;
 import meteordevelopment.meteorclient.utils.entity.SortPriority;
@@ -50,6 +51,7 @@ public class BedAura extends Module {
 
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder().name("delay").description("The delay between placing beds in ticks.").defaultValue(9).min(0).sliderMax(20).build());
     private final Setting<Boolean> strictDirection = sgGeneral.add(new BoolSetting.Builder().name("strict-direction").description("Only places beds in the direction you are facing.").defaultValue(false).build());
+    private final Setting<Boolean> pauseOnCa = sgGeneral.add(new BoolSetting.Builder().name("pause-on-ca").description("Pause while Crystal Aura is active.").defaultValue(false).build());
     private final Setting<BreakHand> breakHand = sgGeneral.add(new EnumSetting.Builder<BreakHand>().name("break-hand").description("Which hand to break beds with.").defaultValue(BreakHand.Offhand).build());
 
     // Targeting
@@ -97,7 +99,6 @@ public class BedAura extends Module {
     private int timer, webTimer;
     private Item ogItem;
     private boolean sentTrapMine, sentBurrowMine, safetyToggled;
-    AutoBedCraft bedCraft = Modules.get().get(AutoBedCraft.class);
 
 
     public BedAura() {
@@ -136,6 +137,7 @@ public class BedAura extends Module {
     @EventHandler
     private void onTick(TickEvent.Post event) {
         PopCounter popCounter = Modules.get().get(PopCounter.class);
+        CrystalAura ca = Modules.get().get(CrystalAura.class);
         if (PlayerUtils.getTotalHealth() <= safetyHP.get()) {
             if (disableOnSafety.get()) {
                 safetyToggled = true;
@@ -152,6 +154,8 @@ public class BedAura extends Module {
                 Stats.kills++;
                 EzUtil.sendBedEz(target.getEntityName()); }
         }
+
+        if (pauseOnCa.get() && ca.isActive()) return;
 
         target = TargetUtils.getPlayerTarget(targetRange.get(), priority.get());
         if (TargetUtils.isBadTarget(target, targetRange.get())) target = null;

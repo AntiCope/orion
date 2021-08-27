@@ -11,13 +11,10 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.util.Identifier;
 
 public class Logo extends HudElement {
-    private static final Identifier LOGO = new Identifier("orion", "icon.png");
-    private static final Identifier TEXT_GRADIENT = new Identifier("ghostware", "textures/text_gradient.png");
-    private static final Identifier FLAT = new Identifier("ghostware", "textures/flat.png");
-    private static final Identifier TEXT_FLAT = new Identifier("ghostware", "textures/text_flat.png");
+    private static final Identifier LOGO = new Identifier("orion", "assets/logos/logo.png");
+    private static final Identifier LOGO_FLAT = new Identifier("orion", "assets/logos/logo_flat.png");
 
     private static final RainbowColor RAINBOW = new RainbowColor();
-
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
@@ -41,7 +38,11 @@ public class Logo extends HudElement {
         double y = box.getY();
         int w = (int) box.width;
         int h = (int) box.height;
-        GL.bindTexture(LOGO);
+        if (chroma.get()) {
+            GL.bindTexture(LOGO_FLAT);
+        } else {
+            GL.bindTexture(LOGO);
+        }
         Renderer2D.TEXTURE.begin();
         if (chroma.get()) {
             RAINBOW.setSpeed(chromaSpeed.get() / 100);

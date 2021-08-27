@@ -20,7 +20,7 @@ public class Placeholders {
         if (m.contains("{oversion}")) m = m.replace("{oversion}", Orion.VERSION);
         if (m.contains("{random}")) m = m.replace("{random}", String.valueOf(Wrapper.randomNum(1, 9)));
         if (m.contains("{username}")) m = m.replace("{username}", mc.getSession().getUsername());
-        if (m.contains("{hp}")) m = m.replace("{hp}", String.valueOf(PlayerUtils.getTotalHealth()));
+        if (m.contains("{hp}")) m = m.replace("{hp}", String.valueOf(Math.rint(PlayerUtils.getTotalHealth())));
         return m;
     }
 }

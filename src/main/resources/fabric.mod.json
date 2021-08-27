@@ -10,7 +10,7 @@
   "contact": {
     "repo": "https://github.com/GhostTypes/orion"
   },
-  "icon": "assets/orion/icon.png",
+  "icon": "icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [

@@ -21,6 +21,7 @@ public class EzUtil {
 
     public static void sendAutoEz(String playerName) {
         if (ezdPlayers.contains(playerName)) return;
+        ezdPlayers.add(playerName);
         PopCounter popCounter = Modules.get().get(PopCounter.class);
         List<String> ezMessages = popCounter.ezMessages.get();
         if (ezMessages.isEmpty()) {
@@ -28,17 +29,17 @@ public class EzUtil {
             return;
         }
         String ezMessage = ezMessages.get(new Random().nextInt(ezMessages.size()));
-        ezdPlayers.add(playerName);
         if (ezMessage.contains("{player}")) ezMessage = ezMessage.replace("{player}", playerName);
         if (popCounter.doPlaceholders.get()) ezMessage = Placeholders.apply(ezMessage);
         if (popCounter.killStr.get()) { ezMessage = ezMessage + " | Killstreak: " + Stats.killStreak; }
-        if (popCounter.suffix.get()) { ezMessage = ezMessage + " | Ghostware " + Orion.VERSION; }
+        if (popCounter.suffix.get()) { ezMessage = ezMessage + " | Orion " + Orion.VERSION; }
         mc.player.sendChatMessage(ezMessage);
         if (popCounter.pmEz.get()) Wrapper.messagePlayer(playerName, StringHelper.stripName(playerName, ezMessage));
     }
 
     public static void sendBedEz(String playerName) {
         if (ezdPlayers.contains(playerName)) return;
+        ezdPlayers.add(playerName);
         PopCounter popCounter = Modules.get().get(PopCounter.class);
         List<String> ezMessages = popCounter.bedEzMessages.get();
         if (ezMessages.isEmpty()) {
@@ -46,11 +47,10 @@ public class EzUtil {
             return;
         }
         String ezMessage = ezMessages.get(new Random().nextInt(ezMessages.size()));
-        ezdPlayers.add(playerName);
         if (ezMessage.contains("{player}")) ezMessage = ezMessage.replace("{player}", playerName);
         if (popCounter.doPlaceholders.get()) ezMessage = Placeholders.apply(ezMessage);
         if (popCounter.killStr.get()) ezMessage = ezMessage + " | Killstreak: " + Stats.killStreak;
-        if (popCounter.suffix.get()) { ezMessage = ezMessage + " | Ghostware " + Orion.VERSION; }
+        if (popCounter.suffix.get()) { ezMessage = ezMessage + " | Orion " + Orion.VERSION; }
         mc.player.sendChatMessage(ezMessage);
         if (popCounter.pmEz.get()) Wrapper.messagePlayer(playerName, StringHelper.stripName(playerName, ezMessage));
     }
