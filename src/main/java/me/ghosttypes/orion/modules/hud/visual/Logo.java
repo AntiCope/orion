@@ -6,6 +6,7 @@ import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.render.hud.HUD;
 import meteordevelopment.meteorclient.systems.modules.render.hud.HudRenderer;
 import meteordevelopment.meteorclient.systems.modules.render.hud.modules.HudElement;
+import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.util.Identifier;
@@ -34,6 +35,7 @@ public class Logo extends HudElement {
 
     @Override
     public void render(HudRenderer renderer) {
+        if (!Utils.canUpdate()) return;
         double x = box.getX();
         double y = box.getY();
         int w = (int) box.width;

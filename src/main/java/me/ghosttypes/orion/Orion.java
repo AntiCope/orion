@@ -2,16 +2,11 @@ package me.ghosttypes.orion;
 
 
 import me.ghosttypes.orion.modules.chat.*;
-import me.ghosttypes.orion.modules.hud.items.Beds;
-import me.ghosttypes.orion.modules.hud.items.Crystals;
-import me.ghosttypes.orion.modules.hud.items.Gaps;
-import me.ghosttypes.orion.modules.hud.items.XP;
+import me.ghosttypes.orion.modules.hud.items.*;
 import me.ghosttypes.orion.modules.hud.items.text.*;
 import me.ghosttypes.orion.modules.hud.misc.Welcome;
 import me.ghosttypes.orion.modules.hud.stats.*;
-import me.ghosttypes.orion.modules.hud.visual.Logo;
-import me.ghosttypes.orion.modules.hud.visual.VisualBinds;
-import me.ghosttypes.orion.modules.hud.visual.Watermark;
+import me.ghosttypes.orion.modules.hud.visual.*;
 import me.ghosttypes.orion.modules.main.*;
 import me.ghosttypes.orion.utils.Wrapper;
 import meteordevelopment.meteorclient.MeteorAddon;

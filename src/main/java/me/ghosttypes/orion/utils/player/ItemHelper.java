@@ -4,7 +4,9 @@ import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.EnderChestBlock;
 import net.minecraft.block.ShulkerBoxBlock;
+import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.item.*;
 
 import java.util.ArrayList;
@@ -96,4 +98,18 @@ public class ItemHelper {
     public static FindItemResult findXPinAll() {
         return InvUtils.find(Items.EXPERIENCE_BOTTLE);
     }
+
+    public static String getCommonName(Item item) {
+        if (item instanceof BedItem) return "Bed";
+        if (item instanceof ExperienceBottleItem) return "XP";
+        if (item instanceof EndCrystalItem) return "Crystal";
+        if (Block.getBlockFromItem(item) == Blocks.OBSIDIAN) return "Obby";
+        if (item.equals(Items.TOTEM_OF_UNDYING)) return "Totem";
+        if (item instanceof EnderPearlItem) return "Pearl";
+        if (Block.getBlockFromItem(item) instanceof EnderChestBlock) return "Echest";
+        return item.getName().asString();
+    }
+
+
+
 }

@@ -26,5 +26,4 @@ public class ItemCounter {
         return InvUtils.find(itemStack -> itemStack.getItem() instanceof BedItem).getCount();
     }
 
-
 }

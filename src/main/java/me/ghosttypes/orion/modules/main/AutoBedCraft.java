@@ -55,7 +55,6 @@ public class AutoBedCraft extends Module {
 
 
     private boolean didRefill = false;
-    private boolean toggledBa = false;
     private boolean startedRefill = false;
     private boolean alertedNoMats = false;
 
@@ -68,11 +67,6 @@ public class AutoBedCraft extends Module {
             alertedNoMats = true;
         }
         if (automatic.get() && needsRefill() && canRefill(true) && !isOutOfMaterial() && !(mc.player.currentScreenHandler instanceof CraftingScreenHandler)) {
-            if (debug.get()) info("Automatic starting, pausing bedaura");
-            if (!toggledBa && Modules.get().get(BedAura.class).isActive()) {
-                toggledBa = true;
-                Modules.get().get(BedAura.class).toggle();
-            }
             FindItemResult craftTable = ItemHelper.findCraftTable();
             if (!craftTable.found()) {
                 toggle();
@@ -101,11 +95,6 @@ public class AutoBedCraft extends Module {
             didRefill = false;
             startedRefill = false;
             if (debug.get()) info("Automatic finished.");
-            if (toggledBa) {
-                if (debug.get()) info("Resuming bedaura");
-                toggledBa = false;
-                Modules.get().get(BedAura.class).toggle();
-            }
         }
 
         if (mc.player.currentScreenHandler instanceof CraftingScreenHandler) {

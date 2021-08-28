@@ -7,6 +7,7 @@ import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.render.hud.HUD;
 import meteordevelopment.meteorclient.systems.modules.render.hud.HudRenderer;
 import meteordevelopment.meteorclient.systems.modules.render.hud.modules.HudElement;
+import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.render.RenderUtils;
 import net.minecraft.item.ItemStack;
@@ -28,6 +29,7 @@ public class Gaps extends HudElement {
 
     @Override
     public void render(HudRenderer renderer) {
+        if (!Utils.canUpdate()) return;
         double x = box.getX();
         double y = box.getY();
 

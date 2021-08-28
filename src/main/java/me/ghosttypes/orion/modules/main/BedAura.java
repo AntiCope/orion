@@ -32,6 +32,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BedItem;
 import net.minecraft.item.Item;
+import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -51,7 +52,6 @@ public class BedAura extends Module {
 
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder().name("delay").description("The delay between placing beds in ticks.").defaultValue(9).min(0).sliderMax(20).build());
     private final Setting<Boolean> strictDirection = sgGeneral.add(new BoolSetting.Builder().name("strict-direction").description("Only places beds in the direction you are facing.").defaultValue(false).build());
-    private final Setting<Boolean> pauseOnCa = sgGeneral.add(new BoolSetting.Builder().name("pause-on-ca").description("Pause while Crystal Aura is active.").defaultValue(false).build());
     private final Setting<BreakHand> breakHand = sgGeneral.add(new EnumSetting.Builder<BreakHand>().name("break-hand").description("Which hand to break beds with.").defaultValue(BreakHand.Offhand).build());
 
     // Targeting
@@ -85,6 +85,8 @@ public class BedAura extends Module {
     private final Setting<Boolean> pauseOnEat = sgPause.add(new BoolSetting.Builder().name("pause-on-eat").description("Pauses while eating.").defaultValue(true).build());
     private final Setting<Boolean> pauseOnDrink = sgPause.add(new BoolSetting.Builder().name("pause-on-drink").description("Pauses while drinking.").defaultValue(true).build());
     private final Setting<Boolean> pauseOnMine = sgPause.add(new BoolSetting.Builder().name("pause-on-mine").description("Pauses while mining.").defaultValue(true).build());
+    private final Setting<Boolean> pauseOnCa = sgPause.add(new BoolSetting.Builder().name("pause-on-ca").description("Pause while Crystal Aura is active.").defaultValue(false).build());
+    private final Setting<Boolean> pauseOnCraft = sgPause.add(new BoolSetting.Builder().name("pause-on-crafting").description("Pauses while you're in a crafting table.").defaultValue(false).build());
 
     // Render
     private final Setting<Boolean> swing = sgRender.add(new BoolSetting.Builder().name("swing").description("Whether to swing hand clientside clientside.").defaultValue(true).build());
@@ -146,7 +148,6 @@ public class BedAura extends Module {
             return;
         }
         if (mc.world.getDimension().isBedWorking()) { error( "Beds don't work here monke!"); toggle(); return; }
-        if (PlayerUtils.shouldPause(pauseOnMine.get(), pauseOnEat.get(), pauseOnDrink.get())) return;
 
         if (target != null && popCounter.autoEz.get()) {
             if (target.deathTime > 0 || target.getHealth() <= 0) {
@@ -155,6 +156,8 @@ public class BedAura extends Module {
                 EzUtil.sendBedEz(target.getEntityName()); }
         }
 
+        if (PlayerUtils.shouldPause(pauseOnMine.get(), pauseOnEat.get(), pauseOnDrink.get())) return;
+        if (pauseOnCraft.get() && mc.player.currentScreenHandler instanceof CraftingScreenHandler) return;
         if (pauseOnCa.get() && ca.isActive()) return;
 
         target = TargetUtils.getPlayerTarget(targetRange.get(), priority.get());
