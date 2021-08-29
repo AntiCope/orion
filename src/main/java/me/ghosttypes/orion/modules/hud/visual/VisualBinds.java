@@ -42,16 +42,20 @@ public class VisualBinds extends HudElement {
     @Override
     public void update(HudRenderer renderer) {
         updateBinds();
-
         double width = 0;
         double height = 0;
-
         int i = 0;
-        for (String bind : binds) {
-            width = Math.max(width, renderer.textWidth(bind));
+        if (binds.isEmpty()) {
+            String t = "Keybinds";
+            width = Math.max(width, renderer.textWidth(t));
             height += renderer.textHeight();
-            if (i > 0) height += 2;
-            i++;
+        } else {
+            for (String bind : binds) {
+                width = Math.max(width, renderer.textWidth(bind));
+                height += renderer.textHeight();
+                if (i > 0) height += 2;
+                i++;
+            }
         }
         box.setSize(width, height);
     }
@@ -65,13 +69,17 @@ public class VisualBinds extends HudElement {
             renderer.text("Keybinds", x, y, hud.secondaryColor.get());
             return;
         }
-
         int i = 0;
-        for (String bind: binds) {
-            renderer.text(bind, x + box.alignX(renderer.textWidth(bind)), y, hud.secondaryColor.get());
-            y += renderer.textHeight();
-            if (i > 0) y += 2;
-            i++;
+        if (binds.isEmpty()) {
+            String t = "You have no keybound modules.";
+            renderer.text(t, x + box.alignX(renderer.textWidth(t)), y, hud.secondaryColor.get());
+        } else {
+            for (String bind: binds) {
+                renderer.text(bind, x + box.alignX(renderer.textWidth(bind)), y, hud.secondaryColor.get());
+                y += renderer.textHeight();
+                if (i > 0) y += 2;
+                i++;
+            }
         }
     }
 

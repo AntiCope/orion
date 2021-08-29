@@ -1,5 +1,6 @@
 package me.ghosttypes.orion.utils.player;
 
+import meteordevelopment.meteorclient.utils.misc.Names;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import net.minecraft.block.Block;
@@ -100,14 +101,15 @@ public class ItemHelper {
     }
 
     public static String getCommonName(Item item) {
-        if (item instanceof BedItem) return "Bed";
+        if (item instanceof BedItem) return "Beds";
         if (item instanceof ExperienceBottleItem) return "XP";
-        if (item instanceof EndCrystalItem) return "Crystal";
+        if (item instanceof EndCrystalItem) return "Crystals";
+        if (item instanceof EnchantedGoldenAppleItem) return "EGaps";
+        if (item instanceof EnderPearlItem) return "Pearls";
+        if (item.equals(Items.TOTEM_OF_UNDYING)) return "Totems";
         if (Block.getBlockFromItem(item) == Blocks.OBSIDIAN) return "Obby";
-        if (item.equals(Items.TOTEM_OF_UNDYING)) return "Totem";
-        if (item instanceof EnderPearlItem) return "Pearl";
-        if (Block.getBlockFromItem(item) instanceof EnderChestBlock) return "Echest";
-        return item.getName().asString();
+        if (Block.getBlockFromItem(item) instanceof EnderChestBlock) return "Echests";
+        return Names.get(item);
     }
 
 

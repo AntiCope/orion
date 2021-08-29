@@ -3,7 +3,6 @@ package me.ghosttypes.orion;
 
 import me.ghosttypes.orion.modules.chat.*;
 import me.ghosttypes.orion.modules.hud.items.*;
-import me.ghosttypes.orion.modules.hud.items.text.*;
 import me.ghosttypes.orion.modules.hud.misc.Welcome;
 import me.ghosttypes.orion.modules.hud.stats.*;
 import me.ghosttypes.orion.modules.hud.visual.*;
@@ -60,17 +59,12 @@ public class Orion extends MeteorAddon {
 
         //HUD
         HUD hud = Modules.get().get(HUD.class);
-        //Texture Item Counters
+        //Item Counters
         hud.elements.add(new Beds(hud));
         hud.elements.add(new Crystals(hud));
         hud.elements.add(new Gaps(hud));
+        hud.elements.add(new TextItems(hud));
         hud.elements.add(new XP(hud));
-        //Text Item Counters
-        hud.elements.add(new TextBeds(hud));
-        hud.elements.add(new TextCrystals(hud));
-        hud.elements.add(new TextGaps(hud));
-        hud.elements.add(new TextTotems(hud));
-        hud.elements.add(new TextXP(hud));
         //Stats
         hud.elements.add(new Deaths(hud));
         hud.elements.add(new Highscore(hud));
