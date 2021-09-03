@@ -9,16 +9,13 @@ import me.ghosttypes.orion.utils.misc.Placeholders;
 import me.ghosttypes.orion.utils.misc.Stats;
 import me.ghosttypes.orion.utils.misc.StringHelper;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
-import meteordevelopment.meteorclient.events.game.ReceiveMessageEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.friends.Friend;
 import meteordevelopment.meteorclient.systems.friends.Friends;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
-import meteordevelopment.orbit.EventPriority;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
@@ -51,13 +48,12 @@ public class PopCounter extends Module {
     public final Setting<Boolean> pmEz = sgAutoEz.add(new BoolSetting.Builder().name("pm-ez").description("Send the autoez message to the player's dm.").defaultValue(false).visible(autoEz::get).build());
     private final Setting<List<String>> popMessages = sgMessages.add(new StringListSetting.Builder().name("pop-messages").description("Messages to use when announcing pops.").defaultValue(Collections.emptyList()).build());
     public final Setting<List<String>> ezMessages = sgMessages.add(new StringListSetting.Builder().name("ez-messages").description("Messages to use for autoez.").defaultValue(Collections.emptyList()).visible(autoEz::get).build());
-    public final Setting<List<String>> bedEzMessages = sgMessages.add(new StringListSetting.Builder().name("bed-ez-messages").description("Messages to use for autoez when the target died to a bed.").defaultValue(Collections.emptyList()).visible(autoEz::get).build());
 
     public final Object2IntMap<UUID> totemPops = new Object2IntOpenHashMap<>();
     private final Object2IntMap<UUID> chatIds = new Object2IntOpenHashMap<>();
 
     private final Random random = new Random();
-    private int clearWait = 45;
+    private int updateWait = 45;
 
     public PopCounter() {
         super(Orion.CATEGORY, "pop-counter", "Count player's totem pops.");
@@ -67,6 +63,7 @@ public class PopCounter extends Module {
 
     @Override
     public void onActivate() {
+        EzUtil.updateTargets();
         totemPops.clear();
         chatIds.clear();
         announceWait = announceDelay.get() * 20;
@@ -74,6 +71,7 @@ public class PopCounter extends Module {
 
     @EventHandler
     private void onGameJoin(GameJoinedEvent event) {
+        Stats.reset();
         totemPops.clear();
         chatIds.clear();
     }
@@ -111,43 +109,17 @@ public class PopCounter extends Module {
         }
     }
 
-    //Credit to https://github.com/tyrannus00 for this chat detection method
-    @EventHandler(priority = EventPriority.HIGHEST)
-    private void onMessageRecieve(ReceiveMessageEvent event) {
-        String msg = event.message.getString();
-        int byIndex = msg.indexOf("by");
-        if (byIndex != -1) {
-            String playerName = msg.substring(0, msg.indexOf(" "));
-            int nameIndex = msg.indexOf(mc.player.getEntityName());
-            boolean canDo = false;
-
-            if (nameIndex < byIndex && nameIndex != -1) return;
-            if (nameIndex > byIndex) canDo = true;
-            for (Friend friend : Friends.get()) {
-                int friendIndex = msg.indexOf(friend.name);
-                if (friendIndex < byIndex && friendIndex != -1) return;
-                else if (!dontAnnounceFriends.get() && friendIndex > byIndex) canDo = true;
-            }
-            if (canDo) {
-                Stats.killStreak++;
-                Stats.kills++;
-                if (!autoEz.get()) return;
-                EzUtil.sendAutoEz(playerName);
-            }
-        }
-    }
 
     @EventHandler
     private void onTick(TickEvent.Post event) {
-        clearWait--;
-        if (clearWait <= 0) {
-            EzUtil.ezdPlayers.clear();
-            clearWait = 45;
+        updateWait--;
+        if (updateWait <= 0) {
+            EzUtil.updateTargets();
+            updateWait = 45;
         }
         announceWait--;
         synchronized (totemPops) {
             for (PlayerEntity player : mc.world.getPlayers()) {
-                BlockPos playerPos = player.getBlockPos();
                 if (!totemPops.containsKey(player.getUuid())) continue;
 
                 if (player.deathTime > 0 || player.getHealth() <= 0) {
@@ -155,6 +127,7 @@ public class PopCounter extends Module {
 
                     ChatUtils.sendMsg(getChatId(player), Formatting.GRAY, "(highlight)%s (default)popped (highlight)%d (default)%s.", player.getEntityName(), pops, pops == 1 ? "totem" : "totems");
                     chatIds.removeInt(player.getUuid());
+                    if (EzUtil.currentTargets.contains(player.getEntityName())) EzUtil.sendAutoEz(player.getEntityName());
                 }
             }
         }

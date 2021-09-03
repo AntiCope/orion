@@ -73,7 +73,6 @@ public class BedAura extends Module {
     private final Setting<Boolean> breakWeb = sgAutomation.add(new BoolSetting.Builder().name("break-web").description("Break target's webs/string automatically.").defaultValue(true).build());
     private final Setting<Boolean> preventEscape = sgAutomation.add(new BoolSetting.Builder().name("prevent-escape").description("Place a block over the target's head before bedding.").defaultValue(false).build());
     private final Setting<Boolean> renderAutomation = sgAutomation.add(new BoolSetting.Builder().name("render-break").description("Render mining self-trap/burrow.").defaultValue(false).build());
-    //private final Setting<Boolean> trapPwn = sgAutomation.add(new BoolSetting.Builder().name("instant-place-after-break").description("Place immediately after breaking target's trap/burrow/webs.").defaultValue(false).build());
     private final Setting<Boolean> disableOnNoBeds = sgAutomation.add(new BoolSetting.Builder().name("disable-on-no-beds").description("Disable if you run out of beds.").defaultValue(false).build());
 
     // Safety
@@ -138,7 +137,6 @@ public class BedAura extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Post event) {
-        PopCounter popCounter = Modules.get().get(PopCounter.class);
         CrystalAura ca = Modules.get().get(CrystalAura.class);
         if (PlayerUtils.getTotalHealth() <= safetyHP.get()) {
             if (disableOnSafety.get()) {
@@ -148,13 +146,6 @@ public class BedAura extends Module {
             return;
         }
         if (mc.world.getDimension().isBedWorking()) { error( "Beds don't work here monke!"); toggle(); return; }
-
-        if (target != null && popCounter.autoEz.get()) {
-            if (target.deathTime > 0 || target.getHealth() <= 0) {
-                Stats.killStreak++;
-                Stats.kills++;
-                EzUtil.sendBedEz(target.getEntityName()); }
-        }
 
         if (PlayerUtils.shouldPause(pauseOnMine.get(), pauseOnEat.get(), pauseOnDrink.get())) return;
         if (pauseOnCraft.get() && mc.player.currentScreenHandler instanceof CraftingScreenHandler) return;
@@ -216,7 +207,6 @@ public class BedAura extends Module {
             }
         }
 
-        //if (trapPwn.get() && sentTrapMine || trapPwn.get() && sentBurrowMine) timer = 0;
         if (sentTrapMine && didTrapMine()) { sentTrapMine = false; stb = null; }
         if (sentBurrowMine && !AutomationUtils.isBurrowed(target, false)) sentBurrowMine = false;
 

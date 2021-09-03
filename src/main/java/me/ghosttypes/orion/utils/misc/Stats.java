@@ -16,6 +16,6 @@ public class Stats {
         killStreak = 0;
         highscore = 0;
         BurrowAlert.burrowedPlayers.clear();
-        EzUtil.ezdPlayers.clear();
+        EzUtil.currentTargets.clear();
     }
 }

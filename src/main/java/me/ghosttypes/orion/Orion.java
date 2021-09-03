@@ -20,10 +20,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.lang.invoke.MethodHandles;
 
-//If you're wondering yes this is essentially Ghostware
-//I got tired of doing shitty protection and the jar has been leaked to some degree
-//This is the public continuation of that project, thank you to everyone who helped test
-//and everyone who donated
 
 public class Orion extends MeteorAddon {
 	public static final Logger LOG = LogManager.getLogger();
@@ -34,10 +30,9 @@ public class Orion extends MeteorAddon {
 	public void onInitialize() {
 		LOG.info("Initializing Orion");
 
-
 		MeteorClient.EVENT_BUS.registerLambdaFactory("me.ghosttypes.orion", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
-
+		//Modules
         Modules.get().add(new AutoBedCraft());
         Modules.get().add(new AutoCityPlus());
         Modules.get().add(new AutoLogin());
@@ -55,7 +50,6 @@ public class Orion extends MeteorAddon {
         Modules.get().add(new RPC());
         Modules.get().add(new SelfTrapPlus());
         Modules.get().add(new SurroundPlus());
-
 
         //HUD
         HUD hud = Modules.get().get(HUD.class);

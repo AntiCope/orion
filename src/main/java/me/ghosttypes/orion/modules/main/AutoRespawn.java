@@ -53,7 +53,7 @@ public class AutoRespawn extends Module {
         Stats.deaths++;
         //clear these when we die
         BurrowAlert.burrowedPlayers.clear();
-        EzUtil.ezdPlayers.clear();
+        EzUtil.currentTargets.clear();
         if (Stats.killStreak > Stats.highscore) {
             shouldHS = true;
             Stats.highscore = Stats.killStreak;

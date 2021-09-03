@@ -46,7 +46,7 @@ public class VisualBinds extends HudElement {
         double height = 0;
         int i = 0;
         if (binds.isEmpty()) {
-            String t = "Keybinds";
+            String t = "You have no keybound modules.";
             width = Math.max(width, renderer.textWidth(t));
             height += renderer.textHeight();
         } else {
