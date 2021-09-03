@@ -71,7 +71,6 @@ public class Orion extends MeteorAddon {
         hud.elements.add(new Watermark(hud));
         hud.elements.add(new Welcome(hud));
 
-
         Wrapper.setTitle("Orion " + Orion.VERSION);
         Config.get().customWindowTitleText = "Orion " + Orion.VERSION;
 	}

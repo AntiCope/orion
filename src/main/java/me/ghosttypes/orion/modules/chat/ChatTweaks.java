@@ -5,8 +5,15 @@ import me.ghosttypes.orion.utils.chat.Emotes;
 import meteordevelopment.meteorclient.events.game.SendMessageEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
+import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.text.BaseText;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Formatting;
+
 
 public class ChatTweaks extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -24,6 +31,8 @@ public class ChatTweaks extends Module {
     public final Setting<String> leftBracket = sgGeneral.add(new StringSetting.Builder().name("left-bracket").description("").defaultValue("[").visible(customBrackets :: get).build());
     public final Setting<String> rightBracket = sgGeneral.add(new StringSetting.Builder().name("right-bracket").description("").defaultValue("]").visible(customBrackets :: get).build());
 
+    RainbowColor prefixChroma = new RainbowColor();
+
     public ChatTweaks() {
         super(Orion.CATEGORY, "better-chat-plus", "Various chat improvements.");
     }
@@ -34,5 +43,50 @@ public class ChatTweaks extends Module {
         String message = event.message;
         if (emotes.get()) message = Emotes.apply(message);
         event.message = message;
+    }
+
+    @Override
+    public void onActivate() {
+        ChatUtils.registerCustomPrefix("me.ghosttypes.orion", this::getPrefix);
+    }
+
+
+    public LiteralText getPrefix() {
+        BaseText logo = new LiteralText("");
+        LiteralText prefix = new LiteralText("");
+        String logoT = "Orion";
+        if (customPrefix.get()) logoT = prefixText.get();
+        if (customPrefixColor.get() && !chromaPrefix.get()) logo.append(new LiteralText(logoT).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked()))));
+        if (chromaPrefix.get() && !customPrefixColor.get()) {
+            prefixChroma.setSpeed(chromaSpeed.get() / 100);
+            for(int i = 0, n = logoT.length() ; i < n ; i++) logo.append(new LiteralText(String.valueOf(logoT.charAt(i)))).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixChroma.getNext().getPacked())));
+        }
+        if (!customPrefixColor.get() && !chromaPrefix.get()) {
+            if (customPrefix.get()) { logo.append(prefixText.get());
+            } else { logo.append("Orion"); }
+            logo.setStyle(logo.getStyle().withFormatting(Formatting.RED));
+        }
+        if (themeBrackets.get()) {
+            if (customPrefixColor.get() && !chromaPrefix.get()) prefix.setStyle(prefix.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked())));
+            if (chromaPrefix.get() && !customPrefixColor.get()) {
+                prefixChroma.setSpeed(chromaSpeed.get() / 100);
+                prefix.setStyle(prefix.getStyle().withColor(TextColor.fromRgb(prefixChroma.getNext().getPacked())));
+            }
+            if (customBrackets.get()) {
+                prefix.append(leftBracket.get());
+                prefix.append(logo);
+                prefix.append(rightBracket.get() + " ");
+            } else {
+                prefix.append("[");
+                prefix.append(logo);
+                prefix.append("] ");
+            }
+        } else {
+            prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY));
+            prefix.append("[");
+            prefix.append(logo);
+            prefix.append("] ");
+        }
+        return prefix;
     }
 }
