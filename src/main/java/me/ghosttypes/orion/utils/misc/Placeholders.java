@@ -7,7 +7,7 @@ import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import net.minecraft.SharedConstants;
 
-import static meteordevelopment.meteorclient.utils.Utils.mc;
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class Placeholders {
     public static String apply(String m) {

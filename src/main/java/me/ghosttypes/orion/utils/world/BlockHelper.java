@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import static meteordevelopment.meteorclient.utils.Utils.mc;
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class BlockHelper {
 

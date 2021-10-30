@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static meteordevelopment.meteorclient.utils.Utils.mc;
-
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class EzUtil {
     public static List<String> currentTargets = new ArrayList<>();

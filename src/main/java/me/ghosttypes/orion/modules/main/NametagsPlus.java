@@ -2,7 +2,6 @@ package me.ghosttypes.orion.modules.main;
 
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import me.ghosttypes.orion.Orion;
-import me.ghosttypes.orion.utils.misc.Stats;
 import me.ghosttypes.orion.utils.player.PlayerHelper;
 import meteordevelopment.meteorclient.events.render.Render2DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
@@ -31,6 +30,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
+
 import java.util.*;
 
 public class NametagsPlus extends Module {
@@ -40,7 +40,7 @@ public class NametagsPlus extends Module {
 
     // General
 
-    private final Setting<Object2BooleanMap<EntityType<?>>> entities = sgGeneral.add(new EntityTypeListSetting.Builder().name("entities").description("Select entities to draw nametags on.").defaultValue(Utils.asObject2BooleanOpenHashMap(EntityType.PLAYER, EntityType.ITEM)).build());
+    private final Setting<Object2BooleanMap<EntityType<?>>> entities = sgGeneral.add(new EntityTypeListSetting.Builder().name("entities").description("Select entities to draw nametags on.").defaultValue(EntityType.PLAYER, EntityType.ITEM).build());
     private final Setting<Double> scale = sgGeneral.add(new DoubleSetting.Builder().name("scale").description("The scale of the nametag.").defaultValue(1.5).min(0.1).build());
     private final Setting<Boolean> yourself = sgGeneral.add(new BoolSetting.Builder().name("self").description("Displays a nametag on your player if you're in Freecam.").defaultValue(true).build());
     private final Setting<SettingColor> background = sgGeneral.add(new ColorSetting.Builder().name("background-color").description("The color of the nametag background.").defaultValue(new SettingColor(0, 0, 0, 75)).build());

@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 
-import static meteordevelopment.meteorclient.utils.Utils.mc;
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class Wrapper {
 

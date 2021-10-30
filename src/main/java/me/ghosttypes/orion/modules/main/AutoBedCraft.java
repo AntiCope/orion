@@ -2,13 +2,12 @@ package me.ghosttypes.orion.modules.main;
 
 import me.ghosttypes.orion.Orion;
 import me.ghosttypes.orion.utils.Wrapper;
-import me.ghosttypes.orion.utils.world.BlockHelper;
 import me.ghosttypes.orion.utils.player.InvHelper;
 import me.ghosttypes.orion.utils.player.ItemHelper;
+import me.ghosttypes.orion.utils.world.BlockHelper;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;

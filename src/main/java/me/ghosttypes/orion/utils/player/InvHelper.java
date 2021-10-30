@@ -6,7 +6,7 @@ import net.minecraft.item.AirBlockItem;
 import net.minecraft.item.ItemStack;
 
 
-import static meteordevelopment.meteorclient.utils.Utils.mc;
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class InvHelper {
 

@@ -14,6 +14,10 @@ repositories {
         name = "jitpack"
         url = "https://jitpack.io"
     }
+    maven {
+        name = "meteor-maven"
+        url = "https://maven.meteordev.org/snapshots"
+    }
 }
 
 dependencies {
@@ -23,7 +27,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     // Meteor
-    modImplementation "com.github.MeteorDevelopment:meteor-client:master-SNAPSHOT"
+    modImplementation "meteordevelopment:meteor-client:SNAPSHOT"
 }
 
 processResources {

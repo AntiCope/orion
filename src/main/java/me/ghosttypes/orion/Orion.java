@@ -8,7 +8,7 @@ import me.ghosttypes.orion.modules.hud.stats.*;
 import me.ghosttypes.orion.modules.hud.visual.*;
 import me.ghosttypes.orion.modules.main.*;
 import me.ghosttypes.orion.utils.Wrapper;
-import meteordevelopment.meteorclient.MeteorAddon;
+import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.config.Config;
 import meteordevelopment.meteorclient.systems.modules.Category;
