@@ -1,34 +1,28 @@
 <div align="center">
-	<img src="https://user-images.githubusercontent.com/31757267/131068055-aad22529-9ec7-48f7-8f92-aed402ccf5b9.png">
-</div>
+  <!-- Logo and Title -->
+  <img src="/src/main/resources/assets/orion/logo.png">
+  <h1>Orion</h1>
+  <p>Orion is a combat addon for Meteor Client</p>
 
-<h1 align="center">
-	Orion
-</h1>
-
-<p align="center">
-	Orion is a combat addon for Meteor Client
-</p>
-
-<div align="center">
-	<a href="https://anticope.github.io/meteor-lists/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet"></a>
-  <a href="https://github.com/GhostTypes/orion/releases/latest"><img src="https://img.shields.io/github/v/release/GhostTypes/orion"></a>
-  <img src="https://img.shields.io/github/last-commit/GhostTypes/orion">
-  <img src="https://img.shields.io/github/commit-activity/m/GhostTypes/orion">
-  <img src="https://img.shields.io/github/languages/code-size/GhostTypes/orion">
-  <img src="https://img.shields.io/tokei/lines/github/GhostTypes/orion">
-  <img src="https://img.shields.io/github/downloads/GhostTypes/orion/total">
-	<a href="https://discord.com/invite/9vGTkfA6H4"><img src="https://img.shields.io/discord/875153727013650482"></a>
-
+  <sub>[GhostTypes](https://github.com/GhostTypes) no longer maintains Orion. This is a continuation branch, however this may soon also end support.</sub>
+  <!-- Fancy badges -->
+  <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet"></a>
+  <a href="https://github.com/StormyBytes/orion/releases/latest"><img src="https://img.shields.io/github/v/release/StormyBytes/orion"></a>
+  <img src="https://img.shields.io/github/last-commit/StormyBytes/orion">
+  <img src="https://img.shields.io/github/commit-activity/m/StormyBytes/orion">
+  <img src="https://img.shields.io/github/languages/code-size/StormyBytes/orion">
+  <img src="https://img.shields.io/tokei/lines/github/StormyBytes/orion">
+  <img src="https://img.shields.io/github/downloads/StormyBytes/orion/total">
+  <a href="https://discord.com/invite/9vGTkfA6H4"><img src="https://img.shields.io/discord/875153727013650482"></a>
 </div>
 
 # How to use
-Download the [latest release](https://github.com/GhostTypes/orion/releases/latest) or the [dev build](https://github.com/GhostTypes/orion/releases/tag/latest) and put it in your mods folder with Meteor Client.
+Download the [latest release](https://github.com/StormyBytes/orion/releases/latest) or the [dev build](https://github.com/StormyBytes/orion/releases/tag/latest) and put it in your mods folder with Meteor Client.
 
 Launch fabric loader for 1.17.1 and enjoy Orion for maximum trolliage.
 
 # Discord
-Join our [discord](https://discord.com/invite/9vGTkfA6H4) for the latest Orion and Ion updates and more!
+Due to GhostTypes no longer maintaining Orion, the Orion discord server has been deleted. However the [Ion Discord](https://discord.com/invite/9vGTkfA6H4) still exists.
 
 # Features
 
@@ -45,6 +39,13 @@ Join our [discord](https://discord.com/invite/9vGTkfA6H4) for the latest Orion a
 - Orion Rich Presence
 - Self Trap Plus
 - Surround Plus
+- Auto Login
+- Pop Counter
+- Chat Tweaks
+- Armour Alert
+- Burrow Alert
+- Emotes
+- KD Ratio
 
 ### Hud
 - Orion Welcome Message
@@ -57,3 +58,4 @@ Join our [discord](https://discord.com/invite/9vGTkfA6H4) for the latest Orion a
 - Killstreak Counter
 - Death Counter
 - Highscore Counter
+- Visual Keybinds
