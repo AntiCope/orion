@@ -7,22 +7,28 @@
   <sub>[GhostTypes](https://github.com/GhostTypes) has discontinued both Orion and Ion. This is a continuation branch, however this may soon also end support.</sub>
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet"></a>
-  <a href="https://github.com/StormyBytes/orion/releases/latest"><img src="https://img.shields.io/github/v/release/StormyBytes/orion"></a>
-  <img src="https://img.shields.io/github/last-commit/StormyBytes/orion">
-  <img src="https://img.shields.io/github/commit-activity/m/StormyBytes/orion">
-  <img src="https://img.shields.io/github/languages/code-size/StormyBytes/orion">
-  <img src="https://img.shields.io/tokei/lines/github/StormyBytes/orion">
-  <img src="https://img.shields.io/github/downloads/StormyBytes/orion/total">
-  <a href="https://discord.com/invite/9vGTkfA6H4"><img src="https://img.shields.io/discord/875153727013650482"></a>
+  <a href="https://github.com/AntiCope/orion/releases/latest"><img src="https://img.shields.io/github/v/release/AntiCope/orion"></a>
+  <img src="https://img.shields.io/github/last-commit/AntiCope/orion">
+  <img src="https://img.shields.io/github/commit-activity/m/AntiCope/orion">
+  <img src="https://img.shields.io/github/languages/code-size/AntiCope/orion">
+  <img src="https://img.shields.io/tokei/lines/github/AntiCope/orion">
+  <img src="https://img.shields.io/github/downloads/AntiCope/orion/total">
+  <!-- <a href="https://discord.com/invite/9vGTkfA6H4"><img src="https://img.shields.io/discord/875153727013650482"></a> Discords go poof -->
 </div>
 
 # How to use
-Download the [latest release](https://github.com/StormyBytes/orion/releases/latest) or the [dev build](https://github.com/StormyBytes/orion/releases/tag/latest) and put it in your mods folder with Meteor Client.
+Download the [latest release](https://github.com/AntiCope/orion/releases/latest) or the [dev build](https://github.com/AntiCope/orion/releases/tag/latest) and put it in your mods folder with Meteor Client.
 
 Launch fabric loader for 1.17.1.
 
 # Discord
 GhostTypes has retired from both Orion and Ion. Both discords are left unmaintained.
+
+# Suggestions & Bugs
+If you have a suggestion, please check if the feature already exists before making a suggestion.
+If you have a bug to report, please makesure you have the latest dev build of both Meteor and Orion.
+
+To top it all off, please provide as much information as you can (eg. Screenshots, Version, Settings/Configs, Crash reports/logs).
 
 # Features
 
