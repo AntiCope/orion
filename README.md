@@ -7,7 +7,6 @@
   <sub>[GhostTypes](https://github.com/GhostTypes) has discontinued both Orion and Ion. This is a continuation branch, however this may soon also end support.</sub>
   <!-- Fancy badges -->
   <a href="https://anticope.ml/pages/MeteorAddons.html"><img src="https://img.shields.io/badge/Verified%20Addon-Yes-blueviolet"></a>
-  <a href="https://github.com/AntiCope/orion/releases/latest"><img src="https://img.shields.io/github/v/release/AntiCope/orion"></a>
   <img src="https://img.shields.io/github/last-commit/AntiCope/orion">
   <img src="https://img.shields.io/github/commit-activity/m/AntiCope/orion">
   <img src="https://img.shields.io/github/languages/code-size/AntiCope/orion">
