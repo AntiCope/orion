@@ -7,7 +7,6 @@ import me.ghosttypes.orion.modules.hud.misc.Welcome;
 import me.ghosttypes.orion.modules.hud.stats.*;
 import me.ghosttypes.orion.modules.hud.visual.*;
 import me.ghosttypes.orion.modules.main.*;
-import me.ghosttypes.orion.utils.Wrapper;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.config.Config;
@@ -17,12 +16,15 @@ import meteordevelopment.meteorclient.systems.modules.render.hud.HUD;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import net.minecraft.item.Items;
+
 import java.lang.invoke.MethodHandles;
 
 
 public class Orion extends MeteorAddon {
 	public static final Logger LOG = LogManager.getLogger();
-	public static final Category CATEGORY = new Category("Orion");
+	public static final Category CATEGORY = new Category("Orion", Items.OBSIDIAN.getDefaultStack());
 	public static final String VERSION = "0.1";
 
 	@Override
@@ -70,7 +72,6 @@ public class Orion extends MeteorAddon {
         hud.elements.add(new Watermark(hud));
         hud.elements.add(new Welcome(hud));
 
-        Wrapper.setTitle("Orion " + Orion.VERSION);
         Config.get().customWindowTitleText = "Orion " + Orion.VERSION;
 	}
 

@@ -43,10 +43,6 @@ public class Wrapper {
         return p.forwardSpeed != 0 || p.sidewaysSpeed != 0;
     }
 
-    public static void setTitle(String titleText) {
-        mc.getWindow().setTitle(titleText);
-    }
-
     public static boolean isInHole(PlayerEntity p) {
         BlockPos pos = p.getBlockPos();
         return !mc.world.getBlockState(pos.add(1, 0, 0)).isAir()
