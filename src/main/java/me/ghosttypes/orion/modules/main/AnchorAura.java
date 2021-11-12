@@ -88,7 +88,7 @@ public class AnchorAura extends Module {
     private boolean sentAntiStuck;
 
     public AnchorAura() {
-        super(Orion.CATEGORY, "anchor-aura", "Anchor Aura v2.");
+        super(Orion.CATEGORY, "anchor-aura-plus", "Anchor Aura v2.");
     }
 
     @Override
