@@ -16,7 +16,7 @@
 </div>
 
 # How to use
-Download the [latest release](https://github.com/AntiCope/orion/releases/latest) or the [dev build](https://github.com/AntiCope/orion/releases/tag/latest) and put it in your mods folder with Meteor Client.
+Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Meteor Client.
 
 Launch fabric loader for 1.17.1.
 
