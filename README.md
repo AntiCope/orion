@@ -21,7 +21,7 @@ Download the [latest release](https://github.com/AntiCope/orion/releases/latest)
 Launch fabric loader for 1.17.1.
 
 # Discord
-GhostTypes has retired from both Orion and Ion. Ion went to new ownership,And Orion has been left unmaintained.
+GhostTypes has retired from both Orion and Ion. Ion went to new ownership, and Orion has been left unmaintained.
 
 # Suggestions & Bugs
 If you have a suggestion, please check if the feature already exists before making a suggestion.
