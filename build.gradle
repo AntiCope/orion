@@ -1,9 +1,9 @@
 plugins {
-    id 'fabric-loom' version '0.8-SNAPSHOT'
+    id 'fabric-loom' version '0.10-SNAPSHOT'
     id 'maven-publish'
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_16
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -16,6 +16,10 @@ repositories {
     }
     maven {
         name = "meteor-maven"
+        url = "https://maven.meteordev.org/releases"
+	}
+    maven {
+        name = "meteor-maven-snapshots"
         url = "https://maven.meteordev.org/snapshots"
     }
 }
