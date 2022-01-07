@@ -9,7 +9,7 @@ import me.ghosttypes.orion.modules.hud.visual.*;
 import me.ghosttypes.orion.modules.main.*;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.MeteorClient;
-import meteordevelopment.meteorclient.systems.config.Config;
+import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.hud.HUD;
@@ -53,7 +53,7 @@ public class Orion extends MeteorAddon {
         Modules.get().add(new SurroundPlus());
 
         //HUD
-        HUD hud = Modules.get().get(HUD.class);
+        HUD hud = Systems.get(HUD.class);
         //Item Counters
         hud.elements.add(new Beds(hud));
         hud.elements.add(new Crystals(hud));
@@ -71,8 +71,6 @@ public class Orion extends MeteorAddon {
         hud.elements.add(new VisualBinds(hud));
         hud.elements.add(new Watermark(hud));
         hud.elements.add(new Welcome(hud));
-
-        Config.get().customWindowTitleText = "Orion " + Orion.VERSION;
 	}
 
 	@Override
