@@ -5,8 +5,8 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.misc.NameProtect;
-import meteordevelopment.meteorclient.systems.modules.render.hud.HUD;
-import meteordevelopment.meteorclient.systems.modules.render.hud.modules.DoubleTextHudElement;
+import meteordevelopment.meteorclient.systems.hud.HUD;
+import meteordevelopment.meteorclient.systems.hud.modules.DoubleTextHudElement;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 
 public class Welcome extends DoubleTextHudElement {

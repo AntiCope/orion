@@ -4,8 +4,8 @@ import me.ghosttypes.orion.utils.misc.Stats;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
-import meteordevelopment.meteorclient.systems.modules.render.hud.HUD;
-import meteordevelopment.meteorclient.systems.modules.render.hud.modules.DoubleTextHudElement;
+import meteordevelopment.meteorclient.systems.hud.HUD;
+import meteordevelopment.meteorclient.systems.hud.modules.DoubleTextHudElement;
 
 public class Deaths extends DoubleTextHudElement {
 

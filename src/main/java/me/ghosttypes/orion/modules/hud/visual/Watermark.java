@@ -4,8 +4,8 @@ package me.ghosttypes.orion.modules.hud.visual;
 import me.ghosttypes.orion.Orion;
 import me.ghosttypes.orion.modules.chat.ChatTweaks;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.modules.render.hud.HUD;
-import meteordevelopment.meteorclient.systems.modules.render.hud.modules.DoubleTextHudElement;
+import meteordevelopment.meteorclient.systems.hud.HUD;
+import meteordevelopment.meteorclient.systems.hud.modules.DoubleTextHudElement;
 
 public class Watermark extends DoubleTextHudElement {
     public Watermark(HUD hud) {
