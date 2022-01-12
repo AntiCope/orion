@@ -35,7 +35,7 @@ public class Gaps extends HudElement {
 
         if (isInEditor()) {
             RenderUtils.drawItem(Items.ENCHANTED_GOLDEN_APPLE.getDefaultStack(), (int) x, (int) y, scale.get(), true);
-        } else if (InvUtils.find(Items.ENCHANTED_GOLDEN_APPLE).getCount() > 0) {
+        } else if (InvUtils.find(Items.ENCHANTED_GOLDEN_APPLE).count() > 0) {
             RenderUtils.drawItem(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE, ItemCounter.egaps()), (int) x, (int) y, scale.get(), true);
         }
     }

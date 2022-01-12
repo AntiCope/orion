@@ -69,7 +69,7 @@ public class BurrowBreaker extends Module {
                 info("Breaking " + target.getEntityName() + "'s burrow!");
                 alertedTarget = true;
             }
-            Wrapper.updateSlot(pickSlot.getSlot());
+            Wrapper.updateSlot(pickSlot.slot());
             if (usePacketMine.get() && !sentPacketMine) {
                 AutomationUtils.doPacketMine(burrowBlock);
                 sentPacketMine = true;

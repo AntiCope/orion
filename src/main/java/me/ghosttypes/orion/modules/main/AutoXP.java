@@ -84,7 +84,7 @@ public class AutoXP extends Module {
             if (refill.get()) {
                 FindItemResult invXP = ItemHelper.findXPinAll();
                 if (invXP.found()) {
-                    InvUtils.move().from(invXP.getSlot()).toHotbar(slotRefill);
+                    InvUtils.move().from(invXP.slot()).toHotbar(slotRefill);
                 } else {
                     error("You're out of XP!");
                     toggle();
@@ -99,7 +99,7 @@ public class AutoXP extends Module {
         if (refillSlotEmpty(true) && refillOffhand.get()) {
             FindItemResult invXP = ItemHelper.findXPinAll();
             if (invXP.found()) {
-                InvUtils.move().from(invXP.getSlot()).toOffhand();
+                InvUtils.move().from(invXP.slot()).toOffhand();
             } else {
                 error("You're out of XP!");
                 toggle();

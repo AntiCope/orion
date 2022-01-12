@@ -119,8 +119,8 @@ public class AutoCityPlus extends Module {
         if (isMining) timeMining++;
         if (mineTimer > 0) { mineTimer--; return; }
         if (support.get() && needsSupport() && !triedSupport) placeSupport();
-        if (silent.get() && timeMining >= 55) Wrapper.updateSlot(pick.getSlot());
-        if (!silent.get()) Wrapper.updateSlot(pick.getSlot());
+        if (silent.get() && timeMining >= 55) Wrapper.updateSlot(pick.slot());
+        if (!silent.get()) Wrapper.updateSlot(pick.slot());
         if (!isMining) {
             isMining = true;
             if (!didFirstMine) didFirstMine = true;
@@ -180,7 +180,7 @@ public class AutoCityPlus extends Module {
         Hand hand;
         if (mc.player.getOffHandStack().getItem() == Items.END_CRYSTAL) { hand = Hand.OFF_HAND; } else { hand = Hand.MAIN_HAND; }
         if (hand == Hand.MAIN_HAND && !crystalSlot.found()) return;
-        if (hand == Hand.MAIN_HAND) Wrapper.updateSlot(crystalSlot.getSlot());
+        if (hand == Hand.MAIN_HAND) Wrapper.updateSlot(crystalSlot.slot());
         mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(hand, new BlockHitResult(mc.player.getPos(), getDirection(placePos), placePos, false)));
         Wrapper.swingHand(hand != Hand.MAIN_HAND);
     }

@@ -78,7 +78,7 @@ public class TextItems extends HudElement {
 
     private void updateCounter() {
         itemCounter.clear();
-        for (Item item: items.get()) if (!(item instanceof BedItem)) itemCounter.add(ItemHelper.getCommonName(item) + ": " + InvUtils.find(item).getCount());
+        for (Item item: items.get()) if (!(item instanceof BedItem)) itemCounter.add(ItemHelper.getCommonName(item) + ": " + InvUtils.find(item).count());
         if (beds.get()) itemCounter.add("Beds: " + ItemCounter.beds());
         if (sortMode.get().equals(SortMode.Shortest)) {
             itemCounter.sort(Comparator.comparing(String::length));

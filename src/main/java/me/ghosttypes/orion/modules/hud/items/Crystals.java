@@ -35,7 +35,7 @@ public class Crystals extends HudElement {
 
         if (isInEditor()) {
             RenderUtils.drawItem(Items.END_CRYSTAL.getDefaultStack(), (int) x, (int) y, scale.get(), true);
-        } else if (InvUtils.find(Items.END_CRYSTAL).getCount() > 0) {
+        } else if (InvUtils.find(Items.END_CRYSTAL).count() > 0) {
             RenderUtils.drawItem(new ItemStack(Items.END_CRYSTAL, ItemCounter.crystals()), (int) x, (int) y, scale.get(), true);
         }
     }

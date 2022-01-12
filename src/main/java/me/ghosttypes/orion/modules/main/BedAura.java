@@ -126,12 +126,12 @@ public class BedAura extends Module {
             warning("Your health is too low!");
             if (safetyGapSwap.get()) {
                 FindItemResult gap = ItemHelper.findEgap();
-                if (gap.found()) mc.player.getInventory().selectedSlot = gap.getSlot();
+                if (gap.found()) mc.player.getInventory().selectedSlot = gap.slot();
             }
         }
         if (!safetyToggled && restoreOnDisable.get() && ogItem != null) {
             FindItemResult ogItemInv = InvUtils.find(ogItem);
-            if (ogItemInv.found()) InvUtils.move().from(ogItemInv.getSlot()).toHotbar(autoMoveSlot.get() - 1);
+            if (ogItemInv.found()) InvUtils.move().from(ogItemInv.slot()).toHotbar(autoMoveSlot.get() - 1);
         }
     }
 
@@ -158,7 +158,7 @@ public class BedAura extends Module {
         // Auto move
         if (autoMove.get()) {
             FindItemResult bed = InvUtils.find(itemStack -> itemStack.getItem() instanceof BedItem);
-            if (bed.found() && bed.getSlot() != autoMoveSlot.get() - 1) { InvUtils.move().from(bed.getSlot()).toHotbar(autoMoveSlot.get() - 1); }
+            if (bed.found() && bed.slot() != autoMoveSlot.get() - 1) { InvUtils.move().from(bed.slot()).toHotbar(autoMoveSlot.get() - 1); }
             if (!bed.found() && disableOnNoBeds.get()) { warning("You've run out of beds! Disabling."); toggle(); return; }
         }
 
@@ -174,7 +174,7 @@ public class BedAura extends Module {
         if (breakSelfTrap.get() && shouldTrapMine()) {
             FindItemResult pick = ItemHelper.findPick();
             if (pick.found()) {
-                Wrapper.updateSlot(pick.getSlot());
+                Wrapper.updateSlot(pick.slot());
                 info("Breaking " + target.getEntityName() + "'s self-trap.");
                 stb = BedUtils.getSelfTrapBlock(target, preventEscape.get());
                 AutomationUtils.doPacketMine(stb);
@@ -185,7 +185,7 @@ public class BedAura extends Module {
         if (placePos == null && AutomationUtils.isBurrowed(target, false) && breakBurrow.get() && !sentBurrowMine) {
             FindItemResult pick = ItemHelper.findPick();
             if (pick.found()) {
-                Wrapper.updateSlot(pick.getSlot());
+                Wrapper.updateSlot(pick.slot());
                 info("Breaking " + target.getEntityName() + "'s burrow.");
                 AutomationUtils.doPacketMine(target.getBlockPos());
                 sentBurrowMine = true;
@@ -195,14 +195,14 @@ public class BedAura extends Module {
         if (placePos == null && AutomationUtils.isWebbed(target) && breakWeb.get()) {
             FindItemResult sword = ItemHelper.findSword();
             if (sword.found()) {
-                Wrapper.updateSlot(sword.getSlot());
+                Wrapper.updateSlot(sword.slot());
                 if (webTimer <= 0) {
                     info("Breaking " + target.getEntityName() + "'s web.");
                     webTimer = 100;
                 } else {
                     webTimer--;
                 }
-                AutomationUtils.mineWeb(target, sword.getSlot());
+                AutomationUtils.mineWeb(target, sword.slot());
                 return;
             }
         }

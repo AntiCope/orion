@@ -20,7 +20,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
 
 import java.util.Collections;
 import java.util.List;

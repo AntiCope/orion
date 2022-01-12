@@ -176,7 +176,7 @@ public class AutoBedCraft extends Module {
         FindItemResult craftTable = ItemHelper.findCraftTable();
         if (!craftTable.found()) return true;
         if (!wool.found() || !plank.found()) return true;
-        return wool.getCount() < 3 || plank.getCount() < 3;
+        return wool.count() < 3 || plank.count() < 3;
     }
 
     private void windowClick(ScreenHandler container, int slot, SlotActionType action, int clickData) {

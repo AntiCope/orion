@@ -36,7 +36,7 @@ public class Beds extends HudElement {
 
         if (isInEditor()) {
             RenderUtils.drawItem(Items.RED_BED.getDefaultStack(), (int) x, (int) y, scale.get(), true);
-        } else if (InvUtils.find(itemStack -> itemStack.getItem() instanceof BedItem).getCount() > 0) {
+        } else if (InvUtils.find(itemStack -> itemStack.getItem() instanceof BedItem).count() > 0) {
             RenderUtils.drawItem(new ItemStack(Items.RED_BED, ItemCounter.beds()), (int) x, (int) y, scale.get(), true);
         }
     }
