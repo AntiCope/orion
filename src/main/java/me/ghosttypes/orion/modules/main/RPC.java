@@ -1,11 +1,10 @@
 package me.ghosttypes.orion.modules.main;
 
-import club.minnced.discord.rpc.DiscordEventHandlers;
-import club.minnced.discord.rpc.DiscordRPC;
-import club.minnced.discord.rpc.DiscordRichPresence;
 import me.ghosttypes.orion.Orion;
 import me.ghosttypes.orion.utils.misc.Placeholders;
 import me.ghosttypes.orion.utils.misc.Stats;
+import meteordevelopment.DiscordIPC;
+import meteordevelopment.RichPresence;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
@@ -26,10 +25,7 @@ public class RPC extends Module {
     private final Setting<List<String>> messages2 = sgGeneral.add(new StringListSetting.Builder().name("line-2").description("Messages for the second RPC line.").defaultValue(Collections.emptyList()).build());
     private final Setting<Integer> delay = sgGeneral.add(new IntSetting.Builder().name("update-delay").description("How many seconds before switching to a new RPC message.").defaultValue(5).min(0).sliderMax(30).build());
 
-
-
-    public static final DiscordRichPresence rpc = new DiscordRichPresence();
-    public static final DiscordRPC instance = DiscordRPC.INSTANCE;
+    public static final RichPresence rpc = new RichPresence();
 
     public RPC() {
         super(Orion.CATEGORY, "RPC", "Orion RPC for Discord!");
@@ -50,22 +46,17 @@ public class RPC extends Module {
             return;
         }
         updateDelay = delay.get() * 20;
-        DiscordEventHandlers handlers = new DiscordEventHandlers();
-        instance.Discord_Initialize("880625940336627743", handlers, true, null);
-        rpc.startTimestamp = Stats.rpcStart;
-        rpc.largeImageKey = "orion";
-        rpc.largeImageText = Placeholders.apply(title.get());
+        DiscordIPC.start(880625940336627743L, null);
+        rpc.setStart(Stats.rpcStart);
+        rpc.setLargeImage("orion", Placeholders.apply(title.get()));
         updateDetails();
-        instance.Discord_UpdatePresence(rpc);
-        instance.Discord_RunCallbacks();
         messageI = 0;
         messageI2 = 0;
     }
 
     @Override
     public void onDeactivate() {
-        instance.Discord_ClearPresence();
-        instance.Discord_Shutdown();
+        DiscordIPC.stop();
     }
 
     @EventHandler
@@ -77,7 +68,6 @@ public class RPC extends Module {
             updateDetails();
             updateDelay = delay.get() * 20;
         }
-        instance.Discord_RunCallbacks();
     }
 
     private void updateDetails() {
@@ -86,9 +76,9 @@ public class RPC extends Module {
             if (messageI2 >= messages2.get().size()) messageI2 = 0;
             int i = messageI++;
             int i2 = messageI2++;
-            rpc.details = Placeholders.apply(messages.get().get(i));
-            rpc.state = Placeholders.apply(messages2.get().get(i2));
-            instance.Discord_UpdatePresence(rpc);
+            rpc.setDetails(Placeholders.apply(messages.get().get(i)));
+            rpc.setState(Placeholders.apply(messages2.get().get(i2)));
+            DiscordIPC.setActivity(rpc);
         }
     }
 
