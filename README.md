@@ -16,7 +16,7 @@
 </div>
 
 # How to use
-Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Meteor Client.
+Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Latest version of [Meteor Client](https://meteorclient.com)
 
 Launch fabric loader for 1.18.x.
 
@@ -39,9 +39,9 @@ To top it all off, please provide as much information as you can (eg. Screenshot
 - Auto XP
 - Bed Aura
 - Bed Disabler
-- Burrow Breaker
+- Burrow Breakr
 - Nametags Plus
-- Orion Rich Presence
+- Rich Presence
 - Self Trap Plus
 - Surround Plus
 - Auto Login
