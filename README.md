@@ -39,7 +39,7 @@ To top it all off, please provide as much information as you can (eg. Screenshot
 - Auto XP
 - Bed Aura
 - Bed Disabler
-- Burrow Breakr
+- Burrow Breaker
 - Nametags Plus
 - Rich Presence
 - Self Trap Plus
