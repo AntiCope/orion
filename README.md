@@ -16,9 +16,9 @@
 </div>
 
 # How to use
-Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Meteor Client.
+Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Latest version of [Meteor Client](https://meteorclient.com)
 
-Launch fabric loader for 1.17.1.
+Launch fabric loader for 1.18.x.
 
 # Discord
 GhostTypes has retired from both Orion and Ion. Ion went to new ownership, and Orion has been left unmaintained.
@@ -41,7 +41,7 @@ To top it all off, please provide as much information as you can (eg. Screenshot
 - Bed Disabler
 - Burrow Breaker
 - Nametags Plus
-- Orion Rich Presence
+- Rich Presence
 - Self Trap Plus
 - Surround Plus
 - Auto Login
@@ -53,7 +53,7 @@ To top it all off, please provide as much information as you can (eg. Screenshot
 - KD Ratio
 
 ### Hud
-- Orion Welcome Message
+- Welcome Message
 - Item Counter
 	- Beds
 	- Crystals
@@ -63,4 +63,4 @@ To top it all off, please provide as much information as you can (eg. Screenshot
 - Killstreak Counter
 - Death Counter
 - Highscore Counter
-- Visual Keybinds
+- Binds List
