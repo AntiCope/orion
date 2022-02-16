@@ -5,7 +5,8 @@
   "name": "Orion",
   "description": "A combat addon for Meteor Client.",
   "authors": [
-    "GhostTypes"
+    "GhostTypes",
+    "Cloudburst"
   ],
   "contact": {
     "repo": "https://github.com/GhostTypes/orion"
@@ -20,9 +21,13 @@
   "mixins": [
     "orion.mixins.json"
   ],
+  "custom": {
+    "meteor-client:color": "251, 96, 139",
+    "updater:sha": "@gh_hash@"
+  },
   "depends": {
     "java": ">=16",
-    "minecraft": ">=1.17.1",
-    "meteor-client": ">0.4.3"
+    "minecraft": ">=@mc_version@",
+    "meteor-client": "*"
   }
 }

@@ -2,11 +2,11 @@
   "required": true,
   "package": "me.ghosttypes.orion.mixins",
   "compatibilityLevel": "JAVA_16",
-  "client": [],
   "injectors": {
     "defaultRequire": 1
   },
-  "mixins": [
-    "NametagMixin"
+  "client": [
+    "NametagMixin",
+    "TitleScreenMixin"
   ]
 }
