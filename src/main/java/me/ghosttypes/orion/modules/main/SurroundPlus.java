@@ -78,9 +78,9 @@ public class SurroundPlus extends Module {
     @EventHandler
     private void onTick(TickEvent.Pre event) {
         int bpt = 0;
-        if ((disableJump.get() && (mc.options.keyJump.isPressed() || mc.player.input.jumping)) || (disableYchange.get() && mc.player.prevY < mc.player.getY())) { toggle(); return; }
+        if ((disableJump.get() && (mc.options.jumpKey.isPressed() || mc.player.input.jumping)) || (disableYchange.get() && mc.player.prevY < mc.player.getY())) { toggle(); return; }
         if (groundOnly.get() && !mc.player.isOnGround()) return;
-        if (sneakOnly.get() && !mc.options.keySneak.isPressed()) return;
+        if (sneakOnly.get() && !mc.options.sneakKey.isPressed()) return;
         if (BlockHelper.isVecComplete(getSurrDesign())) {
             if (disableAfter.get()) {
                 info("Surround Complete.");
