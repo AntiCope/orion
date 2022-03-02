@@ -14,8 +14,8 @@ import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.hud.HUD;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.minecraft.item.Items;
 
@@ -23,7 +23,7 @@ import java.lang.invoke.MethodHandles;
 
 
 public class Orion extends MeteorAddon {
-	public static final Logger LOG = LogManager.getLogger();
+	public static final Logger LOG = LoggerFactory.getLogger("Orion");
 	public static final Category CATEGORY = new Category("Orion", Items.OBSIDIAN.getDefaultStack());
 	public static final String VERSION = "0.1";
 
