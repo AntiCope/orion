@@ -15,6 +15,12 @@
   <!-- <a href="https://discord.com/invite/9vGTkfA6H4"><img src="https://img.shields.io/discord/875153727013650482"></a> Discords go poof -->
 </div>
 
+<div align="center">
+   
+  <img src="https://user-images.githubusercontent.com/18114966/156883971-ef020185-32ab-412a-9d1e-64e61668aa5e.png" width="24px"> Discord: [discord.gg/9mrRPGKYU3](https://discord.gg/9mrRPGKYU3)
+  
+</div>
+
 # How to use
 Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Latest version of [Meteor Client](https://meteorclient.com)
 
