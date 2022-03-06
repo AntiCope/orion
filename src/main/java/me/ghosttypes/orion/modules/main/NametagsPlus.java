@@ -175,7 +175,7 @@ public class NametagsPlus extends Module {
         if (player.getEntityName().equals("GhostTypes")) showDev = true;
 
         //Pops
-        String popText = "[" + PlayerHelper.getPops(player) + "]";
+        String popText = " [" + PlayerHelper.getPops(player) + "]";
 
         // Gamemode
         GameMode gm = EntityUtils.getGameMode(player);
