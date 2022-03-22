@@ -7,6 +7,7 @@ import me.ghosttypes.orion.modules.hud.misc.Welcome;
 import me.ghosttypes.orion.modules.hud.stats.*;
 import me.ghosttypes.orion.modules.hud.visual.*;
 import me.ghosttypes.orion.modules.main.*;
+import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.Systems;
@@ -17,6 +18,7 @@ import meteordevelopment.meteorclient.systems.hud.HUD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
 
 import java.lang.invoke.MethodHandles;
@@ -77,4 +79,25 @@ public class Orion extends MeteorAddon {
 	public void onRegisterCategories() {
 		Modules.registerCategory(CATEGORY);
 	}
+
+    @Override
+    public String getWebsite() {
+        return "https://github.com/AntiCope/orion";
+    }
+
+    @Override
+    public GithubRepo getRepo() {
+        return new GithubRepo("AntiCope", "orion");
+    }
+
+    @Override
+    public String getCommit() {
+        String commit = FabricLoader
+            .getInstance()
+            .getModContainer("orion")
+            .get().getMetadata()
+            .getCustomValue("github:sha")
+            .getAsString();
+        return commit.isEmpty() ? null : commit.trim();
+    }
 }

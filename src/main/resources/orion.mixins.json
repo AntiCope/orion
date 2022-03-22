@@ -6,7 +6,6 @@
     "defaultRequire": 1
   },
   "client": [
-    "NametagMixin",
-    "TitleScreenMixin"
+    "NametagMixin"
   ]
 }

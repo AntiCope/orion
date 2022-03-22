@@ -23,7 +23,7 @@
   ],
   "custom": {
     "meteor-client:color": "251, 96, 139",
-    "updater:sha": "@gh_hash@"
+    "github:sha": "@gh_hash@"
   },
   "depends": {
     "java": ">=16",
