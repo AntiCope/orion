@@ -145,7 +145,7 @@ public class BedAura extends Module {
             }
             return;
         }
-        if (mc.world.getDimension().isBedWorking()) { error( "Beds don't work here monke!"); toggle(); return; }
+        if (mc.world.getDimension().bedWorks()) { error( "Beds don't work here monke!"); toggle(); return; }
 
         if (PlayerUtils.shouldPause(pauseOnMine.get(), pauseOnEat.get(), pauseOnDrink.get())) return;
         if (pauseOnCraft.get() && mc.player.currentScreenHandler instanceof CraftingScreenHandler) return;
@@ -290,7 +290,7 @@ public class BedAura extends Module {
         Hand bHand;
         if (breakHand.get() == BreakHand.Mainhand) { bHand = Hand.MAIN_HAND;
         } else { bHand = Hand.OFF_HAND; }
-        mc.interactionManager.interactBlock(mc.player, mc.world, bHand, new BlockHitResult(mc.player.getPos(), Direction.UP, pos, false));
+        mc.interactionManager.interactBlock(mc.player, bHand, new BlockHitResult(mc.player.getPos(), Direction.UP, pos, false));
         mc.player.setSneaking(wasSneaking);
     }
 

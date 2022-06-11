@@ -9,8 +9,9 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.text.BaseText;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.LiteralTextContent;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 
@@ -51,15 +52,15 @@ public class ChatTweaks extends Module {
     }
 
 
-    public LiteralText getPrefix() {
-        BaseText logo = new LiteralText("");
-        LiteralText prefix = new LiteralText("");
+    public Text getPrefix() {
+        MutableText logo = MutableText.of(new LiteralTextContent(""));
+        MutableText prefix = MutableText.of(new LiteralTextContent(""));
         String logoT = "Orion";
         if (customPrefix.get()) logoT = prefixText.get();
-        if (customPrefixColor.get() && !chromaPrefix.get()) logo.append(new LiteralText(logoT).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked()))));
+        if (customPrefixColor.get() && !chromaPrefix.get()) logo.append(Text.literal(logoT).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked()))));
         if (chromaPrefix.get() && !customPrefixColor.get()) {
             prefixChroma.setSpeed(chromaSpeed.get() / 100);
-            for(int i = 0, n = logoT.length() ; i < n ; i++) logo.append(new LiteralText(String.valueOf(logoT.charAt(i)))).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixChroma.getNext().getPacked())));
+            for(int i = 0, n = logoT.length() ; i < n ; i++) logo.append(Text.literal(String.valueOf(logoT.charAt(i)))).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixChroma.getNext().getPacked())));
         }
         if (!customPrefixColor.get() && !chromaPrefix.get()) {
             if (customPrefix.get()) { logo.append(prefixText.get());

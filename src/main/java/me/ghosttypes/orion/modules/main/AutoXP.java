@@ -128,10 +128,10 @@ public class AutoXP extends Module {
         int lastSlot = mc.player.getInventory().selectedSlot;
         if (mc.player.getInventory().getStack(lastSlot).getItem() == Items.ENCHANTED_GOLDEN_APPLE && pauseOnEat.get()) return;
         if (refillOffhand.get()) {
-            mc.interactionManager.interactItem(mc.player, mc.world, Hand.OFF_HAND);
+            mc.interactionManager.interactItem(mc.player, Hand.OFF_HAND);
         } else {
             Wrapper.updateSlot(slotRefill);
-            mc.interactionManager.interactItem(mc.player, mc.world, Hand.MAIN_HAND);
+            mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
             if (silent.get() && lastSlot != -1) Wrapper.updateSlot(lastSlot);
         }
     }

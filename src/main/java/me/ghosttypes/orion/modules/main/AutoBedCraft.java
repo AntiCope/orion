@@ -152,7 +152,7 @@ public class AutoBedCraft extends Module {
     private void openCraftingTable(BlockPos tablePos) {
         Vec3d tableVec = new Vec3d(tablePos.getX(), tablePos.getY(), tablePos.getZ());
         BlockHitResult table = new BlockHitResult(tableVec, Direction.UP, tablePos, false);
-        mc.interactionManager.interactBlock(mc.player, mc.world, Hand.MAIN_HAND, table);
+        mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, table);
     }
 
     private boolean needsRefill() {

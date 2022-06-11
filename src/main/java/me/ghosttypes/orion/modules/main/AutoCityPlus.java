@@ -181,7 +181,7 @@ public class AutoCityPlus extends Module {
         if (mc.player.getOffHandStack().getItem() == Items.END_CRYSTAL) { hand = Hand.OFF_HAND; } else { hand = Hand.MAIN_HAND; }
         if (hand == Hand.MAIN_HAND && !crystalSlot.found()) return;
         if (hand == Hand.MAIN_HAND) Wrapper.updateSlot(crystalSlot.slot());
-        mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(hand, new BlockHitResult(mc.player.getPos(), getDirection(placePos), placePos, false)));
+        mc.player.networkHandler.sendPacket(new PlayerInteractBlockC2SPacket(hand, new BlockHitResult(mc.player.getPos(), getDirection(placePos), placePos, false), 0));
         Wrapper.swingHand(hand != Hand.MAIN_HAND);
     }
 
