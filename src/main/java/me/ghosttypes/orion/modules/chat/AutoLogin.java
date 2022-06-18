@@ -34,7 +34,7 @@ public class AutoLogin extends Module {
         if (msg.startsWith(">")) return; //ignore chat messages
         for (String loginMsg: loginMessages) {
             if (msg.contains(loginMsg)) {
-                mc.player.sendChatMessage("/login " + password.get());
+                mc.player.sendCommand("login " + password.get());
                 break;
             }
         }
