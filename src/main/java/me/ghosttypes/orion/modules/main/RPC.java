@@ -72,6 +72,7 @@ public class RPC extends Module {
 
     private void updateDetails() {
         if (isActive() && Utils.canUpdate()) {
+            if (messages.get().size() < 1 || messages2.get().size() < 1) return;
             if (messageI >= messages.get().size()) messageI = 0;
             if (messageI2 >= messages2.get().size()) messageI2 = 0;
             int i = messageI++;
