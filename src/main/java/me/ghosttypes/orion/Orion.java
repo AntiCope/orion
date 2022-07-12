@@ -2,10 +2,8 @@ package me.ghosttypes.orion;
 
 
 import me.ghosttypes.orion.modules.chat.*;
-import me.ghosttypes.orion.modules.hud.items.*;
-import me.ghosttypes.orion.modules.hud.misc.Welcome;
-import me.ghosttypes.orion.modules.hud.stats.*;
-import me.ghosttypes.orion.modules.hud.visual.*;
+import me.ghosttypes.orion.modules.hud.Logo;
+import me.ghosttypes.orion.modules.hud.OrionPresets;
 import me.ghosttypes.orion.modules.main.*;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
@@ -13,7 +11,10 @@ import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.systems.hud.HUD;
+import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
+import meteordevelopment.starscript.value.Value;
+import meteordevelopment.meteorclient.systems.hud.Hud;
+import meteordevelopment.meteorclient.systems.hud.HudGroup;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import java.lang.invoke.MethodHandles;
 public class Orion extends MeteorAddon {
 	public static final Logger LOG = LoggerFactory.getLogger("Orion");
 	public static final Category CATEGORY = new Category("Orion", Items.OBSIDIAN.getDefaultStack());
+    public static final HudGroup HUD_GROUP = new HudGroup("Orion");
 	public static final String VERSION = "0.1";
 
 	@Override
@@ -54,25 +56,19 @@ public class Orion extends MeteorAddon {
         Modules.get().add(new SelfTrapPlus());
         Modules.get().add(new SurroundPlus());
 
+        MeteorStarscript.ss.set("orion_version", VERSION);
+        MeteorStarscript.ss.set("orion_prefix", () -> {
+            ChatTweaks chatTweaks = Modules.get().get(ChatTweaks.class);
+            if (chatTweaks.isActive() && chatTweaks.customPrefix.get()) {
+                return Value.string(chatTweaks.prefixText.get());
+            }
+            return Value.string("Orion");
+        });
+
         //HUD
-        HUD hud = Systems.get(HUD.class);
-        //Item Counters
-        hud.elements.add(new Beds(hud));
-        hud.elements.add(new Crystals(hud));
-        hud.elements.add(new Gaps(hud));
-        hud.elements.add(new TextItems(hud));
-        hud.elements.add(new XP(hud));
-        //Stats
-        hud.elements.add(new Deaths(hud));
-        hud.elements.add(new Highscore(hud));
-        hud.elements.add(new KDRatio(hud));
-        hud.elements.add(new Killstreak(hud));
-        hud.elements.add(new Kills(hud));
-        //Visual
-        hud.elements.add(new Logo(hud));
-        hud.elements.add(new VisualBinds(hud));
-        hud.elements.add(new Watermark(hud));
-        hud.elements.add(new Welcome(hud));
+        Hud hud = Systems.get(Hud.class);
+        hud.register(OrionPresets.INFO);
+        hud.register(Logo.INFO);
 	}
 
 	@Override

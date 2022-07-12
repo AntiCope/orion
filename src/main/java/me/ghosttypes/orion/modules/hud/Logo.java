@@ -1,17 +1,21 @@
-package me.ghosttypes.orion.modules.hud.visual;
+package me.ghosttypes.orion.modules.hud;
 
 import meteordevelopment.meteorclient.renderer.GL;
 import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.hud.HUD;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
-import meteordevelopment.meteorclient.systems.hud.modules.HudElement;
+import meteordevelopment.meteorclient.systems.hud.HudElement;
+import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.util.Identifier;
 
+import me.ghosttypes.orion.Orion;
+
 public class Logo extends HudElement {
+    public static final HudElementInfo<Logo> INFO = new HudElementInfo<>(Orion.HUD_GROUP, "Orion-logo", "Displays the Orion logo.", Logo::new);
+
     private static final Identifier LOGO = new Identifier("orion", "logo.png");
     private static final Identifier LOGO_FLAT = new Identifier("orion", "logo_flat.png");
 
@@ -24,22 +28,18 @@ public class Logo extends HudElement {
     private final Setting<Double> chromaSpeed = sgGeneral.add(new DoubleSetting.Builder().name("chroma-speed").description("Speed of the chroma animation.").defaultValue(0.09).min(0.01).sliderMax(5).decimalPlaces(2).build());
     private final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder().name("background-color").description("Color of the background.").defaultValue(new SettingColor(255, 255, 255)).build());
 
-    public Logo(HUD hud) {
-        super(hud, "Orion-logo", "Displays the Orion logo.");
+    public Logo() {
+        super(INFO);
+        update();
     }
-
-    @Override
-    public void update(HudRenderer renderer) {
-        box.setSize(78 * scale.get(), 96 * scale.get());
+    
+    public void update() {
+        setSize(78 * scale.get(), 96 * scale.get());
     }
 
     @Override
     public void render(HudRenderer renderer) {
         if (!Utils.canUpdate()) return;
-        double x = box.getX();
-        double y = box.getY();
-        int w = (int) box.width;
-        int h = (int) box.height;
         if (chroma.get()) {
             GL.bindTexture(LOGO_FLAT);
         } else {
@@ -48,9 +48,9 @@ public class Logo extends HudElement {
         Renderer2D.TEXTURE.begin();
         if (chroma.get()) {
             RAINBOW.setSpeed(chromaSpeed.get() / 100);
-            Renderer2D.TEXTURE.texQuad(x, y, w, h, RAINBOW.getNext());
+            Renderer2D.TEXTURE.texQuad(x, y, getWidth(), getHeight(), RAINBOW.getNext());
         } else {
-            Renderer2D.TEXTURE.texQuad(x, y, w, h, color.get());
+            Renderer2D.TEXTURE.texQuad(x, y, getWidth(), getHeight(), color.get());
         }
         Renderer2D.TEXTURE.render(null);
     }
