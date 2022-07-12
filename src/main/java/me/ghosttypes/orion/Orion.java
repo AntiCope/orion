@@ -3,7 +3,7 @@ package me.ghosttypes.orion;
 
 import me.ghosttypes.orion.modules.chat.*;
 import me.ghosttypes.orion.modules.hud.Logo;
-import me.ghosttypes.orion.modules.hud.OrionPresets;
+import me.ghosttypes.orion.modules.hud.OrionHud;
 import me.ghosttypes.orion.modules.main.*;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
@@ -11,8 +11,6 @@ import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
-import meteordevelopment.starscript.value.Value;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 
@@ -56,18 +54,10 @@ public class Orion extends MeteorAddon {
         Modules.get().add(new SelfTrapPlus());
         Modules.get().add(new SurroundPlus());
 
-        MeteorStarscript.ss.set("orion_version", VERSION);
-        MeteorStarscript.ss.set("orion_prefix", () -> {
-            ChatTweaks chatTweaks = Modules.get().get(ChatTweaks.class);
-            if (chatTweaks.isActive() && chatTweaks.customPrefix.get()) {
-                return Value.string(chatTweaks.prefixText.get());
-            }
-            return Value.string("Orion");
-        });
-
+        OrionHud.starscriptAdd();
         //HUD
         Hud hud = Systems.get(Hud.class);
-        hud.register(OrionPresets.INFO);
+        hud.register(OrionHud.INFO);
         hud.register(Logo.INFO);
 	}
 

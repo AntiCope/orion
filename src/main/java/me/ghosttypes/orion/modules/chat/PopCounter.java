@@ -5,17 +5,23 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import me.ghosttypes.orion.Orion;
 import me.ghosttypes.orion.utils.Wrapper;
 import me.ghosttypes.orion.utils.chat.EzUtil;
-import me.ghosttypes.orion.utils.misc.Placeholders;
 import me.ghosttypes.orion.utils.misc.Stats;
 import me.ghosttypes.orion.utils.misc.StringHelper;
 import meteordevelopment.meteorclient.events.game.GameJoinedEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
+import meteordevelopment.meteorclient.gui.utils.StarscriptTextBoxRenderer;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.friends.Friends;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
+import meteordevelopment.starscript.Script;
+import meteordevelopment.starscript.compiler.Parser;
+import meteordevelopment.starscript.utils.StarscriptError;
+import meteordevelopment.starscript.compiler.Compiler;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
@@ -40,13 +46,12 @@ public class PopCounter extends Module {
     private final Setting<Integer> announceDelay = sgGeneral.add(new IntSetting.Builder().name("announce-delay").description("How many seconds between announcing totem pops.").defaultValue(5).min(1).sliderMax(100).visible(announceOthers::get).build());
     private final Setting<Double> announceRange = sgGeneral.add(new DoubleSetting.Builder().name("announce-range").description("How close players need to be to announce pops or AutoEz.").defaultValue(3).min(0).sliderMax(10).visible(announceOthers::get).build());
     private final Setting<Boolean> dontAnnounceFriends = sgGeneral.add(new BoolSetting.Builder().name("dont-announce-friends").description("Don't annnounce when your friends pop.").defaultValue(true).build());
-    public final Setting<Boolean> doPlaceholders = sgGeneral.add(new BoolSetting.Builder().name("placeholders").description("Enable global placeholders for pop/auto ez messages.").defaultValue(false).build());
     public final Setting<Boolean> autoEz = sgAutoEz.add(new BoolSetting.Builder().name("auto-ez").description("Sends a message when you kill players.").defaultValue(false).build());
     public final Setting<Boolean> suffix = sgAutoEz.add(new BoolSetting.Builder().name("suffix").description("Add Orion suffix to the end of pop messages.").defaultValue(false).visible(autoEz::get).build());
     public final Setting<Boolean> killStr = sgAutoEz.add(new BoolSetting.Builder().name("killstreak").description("Add your killstreak to the end of autoez messages").defaultValue(false).visible(autoEz::get).build());
     public final Setting<Boolean> pmEz = sgAutoEz.add(new BoolSetting.Builder().name("pm-ez").description("Send the autoez message to the player's dm.").defaultValue(false).visible(autoEz::get).build());
     private final Setting<List<String>> popMessages = sgMessages.add(new StringListSetting.Builder().name("pop-messages").description("Messages to use when announcing pops.").defaultValue(Collections.emptyList()).build());
-    public final Setting<List<String>> ezMessages = sgMessages.add(new StringListSetting.Builder().name("ez-messages").description("Messages to use for autoez.").defaultValue(Collections.emptyList()).visible(autoEz::get).build());
+    public final Setting<List<String>> ezMessages = sgMessages.add(new StringListSetting.Builder().name("ez-messages").description("Messages to use for autoez.").renderer(StarscriptTextBoxRenderer.class).defaultValue(Collections.emptyList()).visible(autoEz::get).build());
 
     public final Object2IntMap<UUID> totemPops = new Object2IntOpenHashMap<>();
     private final Object2IntMap<UUID> chatIds = new Object2IntOpenHashMap<>();
@@ -99,7 +104,6 @@ public class PopCounter extends Module {
         if (announceOthers.get() && announceWait <= 1 && mc.player.distanceTo(entity) <= announceRange.get()) {
             if (dontAnnounceFriends.get() && Friends.get().isFriend((PlayerEntity) entity)) return;
             String popMessage = getPopMessage((PlayerEntity) entity);
-            if (doPlaceholders.get()) popMessage = Placeholders.apply(popMessage);
             String name = entity.getEntityName();
             if (suffix.get()) { popMessage = popMessage + " | Orion " + Orion.VERSION; }
             mc.player.sendChatMessage(popMessage);
@@ -137,26 +141,32 @@ public class PopCounter extends Module {
     }
 
     private String getPopMessage(PlayerEntity p) {
+        MeteorStarscript.ss.set("pops", totemPops.getOrDefault(p.getUuid(), 0));
+        MeteorStarscript.ss.set("killed", p.getEntityName());
+
         if (popMessages.get().isEmpty()) {
             ChatUtils.warning("Your pop message list is empty!");
             return "Ez pop";
         }
-        String playerName = p.getEntityName();
-        String popMessage = popMessages.get().get(new Random().nextInt(popMessages.get().size()));
-        if (popMessage.contains("{pops}")) {
-            if (totemPops.containsKey(p.getUuid())) {
-                int pops = totemPops.getOrDefault(p.getUuid(), 0);
-                if (pops == 1) {
-                    popMessage = popMessage.replace("{pops}", pops + " totem");
-                } else {
-                    popMessage = popMessage.replace("{pops}", pops + " totems");
-                }
-            } else {
-                popMessage = "Ezz pop";
-            }
+        var script = compile(popMessages.get().get(new Random().nextInt(popMessages.get().size())));
+        if (script == null) warning("Malformed pop message");
+        try {
+            var section = MeteorStarscript.ss.run(script);
+            return section.text;
         }
-        if (popMessage.contains("{player}")) popMessage = popMessage.replace("{player}", playerName);
-        return popMessage;
+        catch (StarscriptError e) {
+            MeteorStarscript.printChatError(e);
+        }
+        return "Ezz pop";
     }
 
+    private static Script compile(String script) {
+        if (script == null) return null;
+        Parser.Result result = Parser.parse(script);
+        if (result.hasErrors()) {
+            MeteorStarscript.printChatError(result.errors.get(0));
+            return null;
+        }
+        return Compiler.compile(result);
+    }
 }
