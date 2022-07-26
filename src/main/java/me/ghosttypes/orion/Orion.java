@@ -1,6 +1,7 @@
 package me.ghosttypes.orion;
 
 
+import com.mojang.logging.LogUtils;
 import me.ghosttypes.orion.modules.chat.*;
 import me.ghosttypes.orion.modules.hud.Logo;
 import me.ghosttypes.orion.modules.hud.OrionHud;
@@ -24,7 +25,7 @@ import java.lang.invoke.MethodHandles;
 
 
 public class Orion extends MeteorAddon {
-	public static final Logger LOG = LoggerFactory.getLogger("Orion");
+	public static final Logger LOG = LogUtils.getLogger();
 	public static final Category CATEGORY = new Category("Orion", Items.OBSIDIAN.getDefaultStack());
     public static final HudGroup HUD_GROUP = new HudGroup("Orion");
 	public static final String VERSION = "0.1";
@@ -32,8 +33,6 @@ public class Orion extends MeteorAddon {
 	@Override
 	public void onInitialize() {
 		LOG.info("Initializing Orion");
-
-		MeteorClient.EVENT_BUS.registerLambdaFactory("me.ghosttypes.orion", (lookupInMethod, klass) -> (MethodHandles.Lookup) lookupInMethod.invoke(null, klass, MethodHandles.lookup()));
 
 		//Modules
         Modules.get().add(new AutoBedCraft());
@@ -65,6 +64,11 @@ public class Orion extends MeteorAddon {
 	public void onRegisterCategories() {
 		Modules.registerCategory(CATEGORY);
 	}
+
+    @Override
+    public String getPackage() {
+        return "me.ghosttypes.orion";
+    }
 
     @Override
     public String getWebsite() {

@@ -29,7 +29,7 @@ public class OrionHud {
         KILLS = addPreset("Kills", "Kills: #1{stats.kills}");
         DEATHS = addPreset("Deaths", "Deaths: #1{stats.deaths}");
         HIGHSCORE = addPreset("Highscore", "Highscore: #1{stats.highscore}");
-        KDRATIO = addPreset("KD", "K/D: : #1{stats.deaths == 0 ? stats.kills : round(stats.kills / stats.deaths, 2)}");
+        KDRATIO = addPreset("KD", "K/D: #1{stats.deaths == 0 ? stats.kills : round(stats.kills / stats.deaths, 2)}");
         KILLSTREAK = addPreset("Kill Streak", "Kill Streak: #1{stats.kill_streak}");
     }
 

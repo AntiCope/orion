@@ -23,16 +23,17 @@ public class Logo extends HudElement {
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
-    private final Setting<Double> scale = sgGeneral.add(new DoubleSetting.Builder().name("scale").description("The scale.").defaultValue(2).min(1).sliderMin(1).sliderMax(5).build());
+    private final Setting<Double> scale = sgGeneral.add(new DoubleSetting.Builder().name("scale").description("The scale.").defaultValue(2).min(1).sliderMin(1).sliderMax(5).onChanged(setting -> update()).build());
     public final Setting<Boolean> chroma = sgGeneral.add(new BoolSetting.Builder().name("chroma").description("Chroma logo animation.").defaultValue(false).build());
-    private final Setting<Double> chromaSpeed = sgGeneral.add(new DoubleSetting.Builder().name("chroma-speed").description("Speed of the chroma animation.").defaultValue(0.09).min(0.01).sliderMax(5).decimalPlaces(2).build());
-    private final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder().name("background-color").description("Color of the background.").defaultValue(new SettingColor(255, 255, 255)).build());
+    private final Setting<Double> chromaSpeed = sgGeneral.add(new DoubleSetting.Builder().name("chroma-speed").description("Speed of the chroma animation.").defaultValue(0.09).min(0.01).sliderMax(5).decimalPlaces(2).onChanged(setting -> RAINBOW.setSpeed(setting / 100)).build());
+    private final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder().name("logo-color").description("Color of the logo.").defaultValue(new SettingColor(255, 255, 255)).build());
 
     public Logo() {
         super(INFO);
         update();
+        RAINBOW.setSpeed(chromaSpeed.get() / 100);
     }
-    
+
     public void update() {
         setSize(78 * scale.get(), 96 * scale.get());
     }
@@ -47,7 +48,6 @@ public class Logo extends HudElement {
         }
         Renderer2D.TEXTURE.begin();
         if (chroma.get()) {
-            RAINBOW.setSpeed(chromaSpeed.get() / 100);
             Renderer2D.TEXTURE.texQuad(x, y, getWidth(), getHeight(), RAINBOW.getNext());
         } else {
             Renderer2D.TEXTURE.texQuad(x, y, getWidth(), getHeight(), color.get());
