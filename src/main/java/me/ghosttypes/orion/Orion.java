@@ -8,7 +8,6 @@ import me.ghosttypes.orion.modules.hud.OrionHud;
 import me.ghosttypes.orion.modules.main.*;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
-import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.systems.Systems;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
@@ -16,12 +15,9 @@ import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
-
-import java.lang.invoke.MethodHandles;
 
 
 public class Orion extends MeteorAddon {
