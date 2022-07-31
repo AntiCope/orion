@@ -1,6 +1,5 @@
 package me.ghosttypes.orion.utils.chat;
 
-import me.ghosttypes.orion.Orion;
 import me.ghosttypes.orion.modules.chat.PopCounter;
 import me.ghosttypes.orion.modules.main.BedAura;
 import me.ghosttypes.orion.utils.Wrapper;
@@ -15,40 +14,33 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.starscript.Script;
 import meteordevelopment.starscript.compiler.Compiler;
 import meteordevelopment.starscript.compiler.Parser;
-import meteordevelopment.starscript.utils.StarscriptError;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static meteordevelopment.meteorclient.MeteorClient.mc;
-
 public class EzUtil {
+    private static final Random RANDOM = new Random();
     public static List<String> currentTargets = new ArrayList<>();
 
     public static void sendAutoEz(String playerName) {
         increaseKC();
         MeteorStarscript.ss.set("killed", playerName);
         PopCounter popCounter = Modules.get().get(PopCounter.class);
-        List<String> ezMessages = popCounter.ezMessages.get();
-        if (ezMessages.isEmpty()) {
+        if (popCounter.ezScripts.isEmpty()) {
             ChatUtils.warning("Your auto ez message list is empty!");
             return;
         }
 
-        var script = compile(ezMessages.get(new Random().nextInt(ezMessages.size())));
-        if (script == null) ChatUtils.warning("Malformed ez message");
-        try {
-            var section = MeteorStarscript.ss.run(script);
-            var ezMessage = section.text;
-            if (popCounter.killStr.get()) { ezMessage = ezMessage + " | Killstreak: " + Stats.killStreak; }
-            if (popCounter.suffix.get()) { ezMessage = ezMessage + " | Orion " + Orion.VERSION; }
-            mc.player.sendChatMessage(ezMessage);
-            if (popCounter.pmEz.get()) Wrapper.messagePlayer(playerName, StringHelper.stripName(playerName, ezMessage));
-        } catch (StarscriptError e) {
-            MeteorStarscript.printChatError(e);
-        }
-        
+        var script = popCounter.ezScripts.get(RANDOM.nextInt(popCounter.ezScripts.size()));
+
+        StringBuilder stringBuilder = new StringBuilder(MeteorStarscript.ss.run(script).toString());
+        if (popCounter.killStr.get()) stringBuilder.append(" | Killstreak: ").append(Stats.killStreak);
+        if (popCounter.suffix.get()) stringBuilder.append(MeteorStarscript.ss.run(popCounter.suffixScript).toString());
+
+        String ezMessage = stringBuilder.toString();
+        ChatUtils.sendPlayerMsg(ezMessage);
+        if (popCounter.pmEz.get()) Wrapper.messagePlayer(playerName, StringHelper.stripName(playerName, ezMessage));
     }
 
     public static void increaseKC() {
@@ -64,15 +56,4 @@ public class EzUtil {
         modules.add(Modules.get().get(BedAura.class));
         for (Module module : modules) currentTargets.add(module.getInfoString());
     }
-
-    private static Script compile(String script) {
-        if (script == null) return null;
-        Parser.Result result = Parser.parse(script);
-        if (result.hasErrors()) {
-            MeteorStarscript.printChatError(result.errors.get(0));
-            return null;
-        }
-        return Compiler.compile(result);
-    }
-
 }

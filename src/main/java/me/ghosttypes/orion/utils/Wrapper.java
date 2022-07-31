@@ -58,7 +58,6 @@ public class Wrapper {
 
     public static void messagePlayer(String playerName, String m) {
         assert mc.player != null;
-        mc.player.sendChatMessage("/msg " + playerName + " " +  m);
+        mc.player.sendCommand("/msg " + playerName + " " +  m);
     }
-
 }
