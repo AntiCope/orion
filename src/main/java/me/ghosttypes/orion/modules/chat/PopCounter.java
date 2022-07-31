@@ -21,6 +21,7 @@ import meteordevelopment.starscript.Script;
 import meteordevelopment.starscript.compiler.Parser;
 import meteordevelopment.starscript.compiler.Compiler;
 
+import meteordevelopment.starscript.utils.StarscriptError;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
@@ -75,7 +76,8 @@ public class PopCounter extends Module {
         List<String> list = popMessages.get();
         popScripts.clear();
         for (var entry : list) {
-            popScripts.add(compile(entry));
+            var script = compile(entry);
+            if (script != null) popScripts.add(script);
         }
     }
 
@@ -83,7 +85,8 @@ public class PopCounter extends Module {
         List<String> list = ezMessages.get();
         ezScripts.clear();
         for (var entry : list) {
-            ezScripts.add(compile(entry));
+            var script = compile(entry);
+            if (script != null) ezScripts.add(script);
         }
     }
     private int announceWait;
@@ -126,15 +129,20 @@ public class PopCounter extends Module {
         if (announceOthers.get() && announceWait <= 1 && mc.player.distanceTo(entity) <= announceRange.get()) {
             if (dontAnnounceFriends.get() && Friends.get().isFriend((PlayerEntity) entity)) return;
 
-            StringBuilder sb = new StringBuilder(getPopMessage((PlayerEntity) entity));
-            if (suffix.get()) sb.append(MeteorStarscript.ss.run(suffixScript).toString());
-            String popMessage = sb.toString();
-            ChatUtils.sendPlayerMsg(popMessage);
+            try {
+                StringBuilder sb = new StringBuilder(getPopMessage((PlayerEntity) entity));
+                if (suffix.get() && suffixScript != null) sb.append(MeteorStarscript.ss.run(suffixScript).toString());
+                String popMessage = sb.toString();
+                ChatUtils.sendPlayerMsg(popMessage);
 
-            if (pmOthers.get()) {
-                String name = entity.getEntityName();
-                Wrapper.messagePlayer(name, StringHelper.stripName(name, popMessage));
+                if (pmOthers.get()) {
+                    String name = entity.getEntityName();
+                    Wrapper.messagePlayer(name, StringHelper.stripName(name, popMessage));
+                }
+            } catch (StarscriptError error) {
+                MeteorStarscript.printChatError(error);
             }
+
             announceWait = announceDelay.get() * 20;
         }
     }
@@ -163,7 +171,7 @@ public class PopCounter extends Module {
         }
     }
 
-    private int getChatId(Entity entity) {
+    private int getChatId(Entity entity) throws StarscriptError {
         return chatIds.computeIfAbsent(entity.getUuid(), value -> RANDOM.nextInt());
     }
 

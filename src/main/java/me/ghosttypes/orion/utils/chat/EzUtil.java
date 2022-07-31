@@ -11,9 +11,7 @@ import meteordevelopment.meteorclient.systems.modules.combat.CrystalAura;
 import meteordevelopment.meteorclient.systems.modules.combat.KillAura;
 import meteordevelopment.meteorclient.utils.misc.MeteorStarscript;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
-import meteordevelopment.starscript.Script;
-import meteordevelopment.starscript.compiler.Compiler;
-import meteordevelopment.starscript.compiler.Parser;
+import meteordevelopment.starscript.utils.StarscriptError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +32,17 @@ public class EzUtil {
 
         var script = popCounter.ezScripts.get(RANDOM.nextInt(popCounter.ezScripts.size()));
 
-        StringBuilder stringBuilder = new StringBuilder(MeteorStarscript.ss.run(script).toString());
-        if (popCounter.killStr.get()) stringBuilder.append(" | Killstreak: ").append(Stats.killStreak);
-        if (popCounter.suffix.get()) stringBuilder.append(MeteorStarscript.ss.run(popCounter.suffixScript).toString());
+        try {
+            StringBuilder stringBuilder = new StringBuilder(MeteorStarscript.ss.run(script).toString());
+            if (popCounter.killStr.get()) stringBuilder.append(" | Killstreak: ").append(Stats.killStreak);
+            if (popCounter.suffix.get() && popCounter.suffixScript != null) stringBuilder.append(MeteorStarscript.ss.run(popCounter.suffixScript).toString());
 
-        String ezMessage = stringBuilder.toString();
-        ChatUtils.sendPlayerMsg(ezMessage);
-        if (popCounter.pmEz.get()) Wrapper.messagePlayer(playerName, StringHelper.stripName(playerName, ezMessage));
+            String ezMessage = stringBuilder.toString();
+            ChatUtils.sendPlayerMsg(ezMessage);
+            if (popCounter.pmEz.get()) Wrapper.messagePlayer(playerName, StringHelper.stripName(playerName, ezMessage));
+        } catch (StarscriptError error) {
+            MeteorStarscript.printChatError(error);
+        }
     }
 
     public static void increaseKC() {
