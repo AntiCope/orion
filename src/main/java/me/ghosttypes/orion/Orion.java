@@ -43,7 +43,6 @@ public class Orion extends MeteorAddon {
         Modules.get().add(new BurrowAlert());
         Modules.get().add(new BurrowBreaker());
         Modules.get().add(new ChatTweaks());
-        Modules.get().add(new NametagsPlus());
         Modules.get().add(new PopCounter());
         Modules.get().add(new RPC());
         Modules.get().add(new SelfTrapPlus());

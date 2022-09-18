@@ -26,7 +26,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     // Meteor
-    modImplementation "meteordevelopment:meteor-client:0.5.1-SNAPSHOT"
+    modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
 
     // Required for loading logo hud element images
     modImplementation "net.fabricmc.fabric-api:fabric-resource-loader-v0:+"

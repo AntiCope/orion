@@ -73,7 +73,7 @@ public class AutoRespawn extends Module {
                 shouldHS = false;
             }
             info("Rekitting with kit " + kitName.get());
-            mc.player.sendCommand("/kit " + kitName.get());
+            ChatUtils.sendPlayerMsg("/kit " + kitName.get());
             shouldRekit = false;
             shouldHS = false;
             rekitWait = 50;

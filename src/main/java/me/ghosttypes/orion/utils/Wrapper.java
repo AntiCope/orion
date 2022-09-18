@@ -1,5 +1,6 @@
 package me.ghosttypes.orion.utils;
 
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.world.TickRate;
 import net.minecraft.client.tutorial.TutorialStep;
 import net.minecraft.entity.player.PlayerEntity;
@@ -58,6 +59,7 @@ public class Wrapper {
 
     public static void messagePlayer(String playerName, String m) {
         assert mc.player != null;
-        mc.player.sendCommand("/msg " + playerName + " " +  m);
+        ChatUtils.sendPlayerMsg("/msg " + playerName + " " +  m);
     }
+
 }
