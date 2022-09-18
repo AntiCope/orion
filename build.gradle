@@ -10,10 +10,6 @@ group = project.maven_group
 
 repositories {
     maven {
-        name = "jitpack"
-        url = "https://jitpack.io"
-    }
-    maven {
         name = "meteor-maven"
         url = "https://maven.meteordev.org/releases"
     }
@@ -50,5 +46,5 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    it.options.release = 16
+    it.options.release = 17
 }

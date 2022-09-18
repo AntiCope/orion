@@ -6,7 +6,8 @@
   "description": "A combat addon for Meteor Client.",
   "authors": [
     "GhostTypes",
-    "Cloudburst"
+    "Cloudburst",
+    "Crosby"
   ],
   "contact": {
     "repo": "https://github.com/GhostTypes/orion"

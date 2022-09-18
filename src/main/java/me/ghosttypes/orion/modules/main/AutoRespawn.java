@@ -80,8 +80,7 @@ public class AutoRespawn extends Module {
             return;
         } else { rekitWait--; }
         if (shouldExcuse && excuseWait <= 1) {
-            String excuseMessage = getExcuseMessage();
-            ChatUtils.sendPlayerMsg(excuseMessage);
+            ChatUtils.sendPlayerMsg(getExcuseMessage());
             shouldExcuse = false;
             excuseWait = 50;
         } else { excuseWait--; }
