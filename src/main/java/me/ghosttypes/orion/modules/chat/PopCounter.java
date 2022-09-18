@@ -128,14 +128,6 @@ public class PopCounter extends Module {
         }
         if (announceOthers.get() && announceWait <= 1 && mc.player.distanceTo(entity) <= announceRange.get()) {
             if (dontAnnounceFriends.get() && Friends.get().isFriend((PlayerEntity) entity)) return;
-<<<<<<< HEAD
-            String popMessage = getPopMessage((PlayerEntity) entity);
-            String name = entity.getEntityName();
-            if (suffix.get()) { popMessage = popMessage + " | Orion " + Orion.VERSION; }
-            ChatUtils.sendPlayerMsg(popMessage);
-            if (pmOthers.get()) Wrapper.messagePlayer(name, StringHelper.stripName(name, popMessage));
-=======
-
             try {
                 StringBuilder sb = new StringBuilder(getPopMessage((PlayerEntity) entity));
                 if (suffix.get() && suffixScript != null) sb.append(MeteorStarscript.ss.run(suffixScript).toString());
@@ -149,8 +141,6 @@ public class PopCounter extends Module {
             } catch (StarscriptError error) {
                 MeteorStarscript.printChatError(error);
             }
-
->>>>>>> upstream/master
             announceWait = announceDelay.get() * 20;
         }
     }
