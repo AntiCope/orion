@@ -19,18 +19,15 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.starscript.Script;
 import meteordevelopment.starscript.compiler.Parser;
-import meteordevelopment.starscript.utils.StarscriptError;
 import meteordevelopment.starscript.compiler.Compiler;
 
+import meteordevelopment.starscript.utils.StarscriptError;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.util.Formatting;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public class PopCounter extends Module {
 
@@ -48,22 +45,51 @@ public class PopCounter extends Module {
     private final Setting<Boolean> dontAnnounceFriends = sgGeneral.add(new BoolSetting.Builder().name("dont-announce-friends").description("Don't annnounce when your friends pop.").defaultValue(true).build());
     public final Setting<Boolean> autoEz = sgAutoEz.add(new BoolSetting.Builder().name("auto-ez").description("Sends a message when you kill players.").defaultValue(false).build());
     public final Setting<Boolean> suffix = sgAutoEz.add(new BoolSetting.Builder().name("suffix").description("Add Orion suffix to the end of pop messages.").defaultValue(false).visible(autoEz::get).build());
+    public final Setting<String> suffixMessage = sgAutoEz.add(new StringSetting.Builder().name("suffix-message").description("The suffix to be added at the end of pop messages.").renderer(StarscriptTextBoxRenderer.class).defaultValue(" | {orion_prefix} {orion_version}").visible(suffix::get).onChanged(e -> updateSuffixScript()).build());
     public final Setting<Boolean> killStr = sgAutoEz.add(new BoolSetting.Builder().name("killstreak").description("Add your killstreak to the end of autoez messages").defaultValue(false).visible(autoEz::get).build());
     public final Setting<Boolean> pmEz = sgAutoEz.add(new BoolSetting.Builder().name("pm-ez").description("Send the autoez message to the player's dm.").defaultValue(false).visible(autoEz::get).build());
-    private final Setting<List<String>> popMessages = sgMessages.add(new StringListSetting.Builder().name("pop-messages").description("Messages to use when announcing pops.").defaultValue(Collections.emptyList()).build());
-    public final Setting<List<String>> ezMessages = sgMessages.add(new StringListSetting.Builder().name("ez-messages").description("Messages to use for autoez.").renderer(StarscriptTextBoxRenderer.class).defaultValue(Collections.emptyList()).visible(autoEz::get).build());
+    public final Setting<List<String>> popMessages = sgMessages.add(new StringListSetting.Builder().name("pop-messages").description("Messages to use when announcing pops.").renderer(StarscriptTextBoxRenderer.class).defaultValue(Collections.emptyList()).onChanged(e -> updatePopScripts()).build());
+    public final Setting<List<String>> ezMessages = sgMessages.add(new StringListSetting.Builder().name("ez-messages").description("Messages to use for autoez.").renderer(StarscriptTextBoxRenderer.class).defaultValue(Collections.emptyList()).visible(() -> autoEz.get() || announceOthers.get()).onChanged(e -> updateEzScripts()).build());
 
     public final Object2IntMap<UUID> totemPops = new Object2IntOpenHashMap<>();
     private final Object2IntMap<UUID> chatIds = new Object2IntOpenHashMap<>();
 
-    private final Random random = new Random();
+    private static final Random RANDOM = new Random();
     private int updateWait = 45;
+    public Script suffixScript;
+    private final List<Script> popScripts = new ArrayList<>();
+    public final List<Script> ezScripts = new ArrayList<>();
 
     public PopCounter() {
         super(Orion.CATEGORY, "pop-counter", "Count player's totem pops.");
+        updateSuffixScript();
+        updateEzScripts();
+        updatePopScripts();
+    }
+
+    private void updateSuffixScript() {
+        String suffix = suffixMessage.get();
+        suffixScript = compile(suffix);
+    }
+
+    private void updatePopScripts() {
+        List<String> list = popMessages.get();
+        popScripts.clear();
+        for (var entry : list) {
+            var script = compile(entry);
+            if (script != null) popScripts.add(script);
+        }
+    }
+
+    private void updateEzScripts() {
+        List<String> list = ezMessages.get();
+        ezScripts.clear();
+        for (var entry : list) {
+            var script = compile(entry);
+            if (script != null) ezScripts.add(script);
+        }
     }
     private int announceWait;
-
 
     @Override
     public void onActivate() {
@@ -82,9 +108,8 @@ public class PopCounter extends Module {
 
     @EventHandler
     private void onReceivePacket(PacketEvent.Receive event) {
-        if (!(event.packet instanceof EntityStatusS2CPacket)) return;
+        if (!(event.packet instanceof EntityStatusS2CPacket p)) return;
 
-        EntityStatusS2CPacket p = (EntityStatusS2CPacket) event.packet;
         if (p.getStatus() != 35) return;
 
         Entity entity = p.getEntity(mc.world);
@@ -103,11 +128,21 @@ public class PopCounter extends Module {
         }
         if (announceOthers.get() && announceWait <= 1 && mc.player.distanceTo(entity) <= announceRange.get()) {
             if (dontAnnounceFriends.get() && Friends.get().isFriend((PlayerEntity) entity)) return;
-            String popMessage = getPopMessage((PlayerEntity) entity);
-            String name = entity.getEntityName();
-            if (suffix.get()) { popMessage = popMessage + " | Orion " + Orion.VERSION; }
-            mc.player.sendChatMessage(popMessage);
-            if (pmOthers.get()) Wrapper.messagePlayer(name, StringHelper.stripName(name, popMessage));
+
+            try {
+                StringBuilder sb = new StringBuilder(getPopMessage((PlayerEntity) entity));
+                if (suffix.get() && suffixScript != null) sb.append(MeteorStarscript.ss.run(suffixScript).toString());
+                String popMessage = sb.toString();
+                ChatUtils.sendPlayerMsg(popMessage);
+
+                if (pmOthers.get()) {
+                    String name = entity.getEntityName();
+                    Wrapper.messagePlayer(name, StringHelper.stripName(name, popMessage));
+                }
+            } catch (StarscriptError error) {
+                MeteorStarscript.printChatError(error);
+            }
+
             announceWait = announceDelay.get() * 20;
         }
     }
@@ -136,28 +171,22 @@ public class PopCounter extends Module {
         }
     }
 
-    private int getChatId(Entity entity) {
-        return chatIds.computeIntIfAbsent(entity.getUuid(), value -> random.nextInt());
+    private int getChatId(Entity entity) throws StarscriptError {
+        return chatIds.computeIfAbsent(entity.getUuid(), value -> RANDOM.nextInt());
     }
 
     private String getPopMessage(PlayerEntity p) {
         MeteorStarscript.ss.set("pops", totemPops.getOrDefault(p.getUuid(), 0));
         MeteorStarscript.ss.set("killed", p.getEntityName());
 
-        if (popMessages.get().isEmpty()) {
+        if (popScripts.isEmpty()) {
             ChatUtils.warning("Your pop message list is empty!");
             return "Ez pop";
         }
-        var script = compile(popMessages.get().get(new Random().nextInt(popMessages.get().size())));
-        if (script == null) warning("Malformed pop message");
-        try {
-            var section = MeteorStarscript.ss.run(script);
-            return section.text;
-        }
-        catch (StarscriptError e) {
-            MeteorStarscript.printChatError(e);
-        }
-        return "Ezz pop";
+
+        Script script = popScripts.get(RANDOM.nextInt(popScripts.size()));
+
+        return MeteorStarscript.ss.run(script).toString();
     }
 
     private static Script compile(String script) {
