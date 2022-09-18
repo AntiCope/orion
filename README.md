@@ -44,7 +44,6 @@ To top it all off, please provide as much information as you can (eg. Screenshot
 - Bed Aura
 - Bed Disabler
 - Burrow Breaker
-- Nametags Plus
 - Rich Presence
 - Self Trap Plus
 - Surround Plus

@@ -43,12 +43,12 @@ public class EzUtil {
             var ezMessage = section.text;
             if (popCounter.killStr.get()) { ezMessage = ezMessage + " | Killstreak: " + Stats.killStreak; }
             if (popCounter.suffix.get()) { ezMessage = ezMessage + " | Orion " + Orion.VERSION; }
-            mc.player.sendChatMessage(ezMessage);
+            ChatUtils.sendPlayerMsg(ezMessage);
             if (popCounter.pmEz.get()) Wrapper.messagePlayer(playerName, StringHelper.stripName(playerName, ezMessage));
         } catch (StarscriptError e) {
             MeteorStarscript.printChatError(e);
         }
-        
+
     }
 
     public static void increaseKC() {

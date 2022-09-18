@@ -9,6 +9,7 @@ import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.gui.screen.DeathScreen;
 
@@ -68,11 +69,11 @@ public class AutoRespawn extends Module {
         if (shouldRekit && rekitWait <= 1) {
             if (shouldHS) {
                 if (alertHS.get()) info("You reached a new highscore of " + Stats.highscore + "!");
-                if (announceHS.get()) mc.player.sendChatMessage("I reached a new highscore of " + Stats.highscore + " thanks to Orion!");
+                if (announceHS.get()) ChatUtils.sendPlayerMsg("I reached a new highscore of " + Stats.highscore + " thanks to Orion!");
                 shouldHS = false;
             }
             info("Rekitting with kit " + kitName.get());
-            mc.player.sendChatMessage("/kit " + kitName.get());
+            ChatUtils.sendPlayerMsg("/kit " + kitName.get());
             shouldRekit = false;
             shouldHS = false;
             rekitWait = 50;
@@ -80,7 +81,7 @@ public class AutoRespawn extends Module {
         } else { rekitWait--; }
         if (shouldExcuse && excuseWait <= 1) {
             String excuseMessage = getExcuseMessage();
-            mc.player.sendChatMessage(excuseMessage);
+            ChatUtils.sendPlayerMsg(excuseMessage);
             shouldExcuse = false;
             excuseWait = 50;
         } else { excuseWait--; }

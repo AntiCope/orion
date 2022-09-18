@@ -106,7 +106,7 @@ public class PopCounter extends Module {
             String popMessage = getPopMessage((PlayerEntity) entity);
             String name = entity.getEntityName();
             if (suffix.get()) { popMessage = popMessage + " | Orion " + Orion.VERSION; }
-            mc.player.sendChatMessage(popMessage);
+            ChatUtils.sendPlayerMsg(popMessage);
             if (pmOthers.get()) Wrapper.messagePlayer(name, StringHelper.stripName(name, popMessage));
             announceWait = announceDelay.get() * 20;
         }
