@@ -7,7 +7,8 @@
   "authors": [
     "GhostTypes",
     "Cloudburst",
-    "Crosby"
+    "Crosby",
+    "RedCarlos"
   ],
   "contact": {
     "repo": "https://github.com/GhostTypes/orion"
@@ -24,7 +25,7 @@
     "github:sha": "@gh_hash@"
   },
   "depends": {
-    "java": ">=16",
+    "java": ">=17",
     "minecraft": ">=@mc_version@",
     "meteor-client": "*"
   }

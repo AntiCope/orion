@@ -6,6 +6,7 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.settings.StringSetting;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 
@@ -34,7 +35,7 @@ public class AutoLogin extends Module {
         if (msg.startsWith(">")) return; //ignore chat messages
         for (String loginMsg: loginMessages) {
             if (msg.contains(loginMsg)) {
-                mc.player.sendCommand("login " + password.get());
+                ChatUtils.sendPlayerMsg("/login " + password.get());
                 break;
             }
         }
