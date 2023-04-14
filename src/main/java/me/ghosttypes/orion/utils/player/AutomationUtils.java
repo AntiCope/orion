@@ -58,7 +58,7 @@ public class AutomationUtils {
     public static boolean canCrystal(PlayerEntity p) {
         BlockPos tpos = p.getBlockPos();
         for (Vec3d sp : surroundPositions) {
-            BlockPos sb = tpos.add(sp.x, sp.y, sp.z);
+            BlockPos sb = tpos.add((int) sp.x, (int) sp.y, (int) sp.z);
             if (BlockHelper.getBlock(sb) == Blocks.AIR) return true;
         }
         return false;

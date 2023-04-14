@@ -84,7 +84,7 @@ public class BedDisabler extends Module {
         BlockPos ppos = mc.player.getBlockPos();
         for (Vec3d b: p) {
             if (wpt >= webPerTick.get()) break;
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add((int) b.x, (int) b.y, (int) b.z);
             BlockUtils.place(bb, string, 50, false);
             wpt++;
         }

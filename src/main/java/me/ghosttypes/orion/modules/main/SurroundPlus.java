@@ -90,7 +90,7 @@ public class SurroundPlus extends Module {
             BlockPos ppos = mc.player.getBlockPos();
             for (Vec3d b : getSurrDesign()) {
                 if (bpt >= blockPerTick.get()) return;
-                BlockPos bb = ppos.add(b.x, b.y, b.z);
+                BlockPos bb = ppos.add((int) b.x, (int) b.y, (int) b.z);
                 if (BlockHelper.getBlock(bb) == Blocks.AIR) {
                     if (placeInside.get()) {
                         BlockUtils.place(bb, InvUtils.findInHotbar(itemStack -> blocks.get().contains(Block.getBlockFromItem(itemStack.getItem()))), rotation.get(), 100, false);
@@ -124,7 +124,7 @@ public class SurroundPlus extends Module {
     private boolean isDangerousCrystal(BlockPos bp) {
         BlockPos ppos = mc.player.getBlockPos();
         for (Vec3d b : getSurrDesign()) {
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add((int) b.x, (int) b.y, (int) b.z);
             if (!bp.equals(bb) && BlockHelper.distanceBetween(bb, bp) <= 2) return true;
         }
         return false;
@@ -144,7 +144,7 @@ public class SurroundPlus extends Module {
         if (render.get()) {
             BlockPos ppos = mc.player.getBlockPos();
             for (Vec3d b: getSurrDesign()) {
-                BlockPos bb = ppos.add(b.x, b.y, b.z);
+                BlockPos bb = ppos.add((int) b.x, (int) b.y, (int) b.z);
                 if (BlockHelper.getBlock(bb) == Blocks.AIR) event.renderer.box(bb, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
                 if (alwaysRender.get()) event.renderer.box(bb, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
             }

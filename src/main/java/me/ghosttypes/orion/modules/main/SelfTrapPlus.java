@@ -95,7 +95,7 @@ public class SelfTrapPlus extends Module {
         for (Vec3d b : getTrapDesign()) {
             if (bpt >= blockPerTick.get()) return;
             BlockPos ppos = mc.player.getBlockPos();
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add((int) b.x, (int) b.y, (int) b.z);
             if (BlockHelper.getBlock(bb) == Blocks.AIR) {
                 BlockUtils.place(bb, obsidian, rotate.get(), 100, true);
                 bpt++;
@@ -108,7 +108,7 @@ public class SelfTrapPlus extends Module {
         if (!render.get() || BlockHelper.isVecComplete(getTrapDesign())) return;
         for (Vec3d b: getTrapDesign()) {
             BlockPos ppos = mc.player.getBlockPos();
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add((int) b.x, (int) b.y, (int) b.z);
             if (BlockHelper.getBlock(bb) == Blocks.AIR) event.renderer.box(bb, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
         }
     }
