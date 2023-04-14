@@ -22,7 +22,7 @@ public class BedUtils {
         List<BlockPos> selfTrapBlocks = new ArrayList<>();
         if (!escapePrevention && AutomationUtils.isTrapBlock(tpos.up(2))) return tpos.up(2);
         for (Vec3d stp : selfTrapPositions) {
-            BlockPos stb = tpos.add(stp.x, stp.y, stp.z);
+            BlockPos stb = tpos.add((int) stp.x, (int) stp.y, (int) stp.z);
             if (AutomationUtils.isTrapBlock(stb)) selfTrapBlocks.add(stb);
         }
         if (selfTrapBlocks.isEmpty()) return null;

@@ -17,7 +17,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.recipebook.RecipeResultCollection;
 import net.minecraft.client.recipebook.RecipeBookGroup;
 import net.minecraft.item.BedItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Recipe;
+import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
@@ -123,7 +126,7 @@ public class AutoBedCraft extends Module {
             List<RecipeResultCollection> recipeResultCollectionList = mc.player.getRecipeBook().getResultsForGroup(RecipeBookGroup.CRAFTING_MISC);
             for (RecipeResultCollection recipeResultCollection : recipeResultCollectionList) {
                 for (Recipe<?> recipe : recipeResultCollection.getRecipes(true)) {
-                    if (recipe.getOutput().getItem() instanceof BedItem) {
+                    if (recipe.getOutput((DynamicRegistryManager) BedItem.BLOCK_ITEMS).getItem() instanceof BedItem) {
                         assert mc.interactionManager != null;
                         mc.interactionManager.clickRecipe(currentScreenHandler.syncId, recipe, false);
                         windowClick(currentScreenHandler, 0, SlotActionType.QUICK_MOVE, 1);

@@ -23,7 +23,7 @@ public class BlockHelper {
     public static boolean isVecComplete(ArrayList<Vec3d> vlist) {
         BlockPos ppos = mc.player.getBlockPos();
         for (Vec3d b: vlist) {
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add((int) b.x, (int) b.y, (int) b.z);
             if (getBlock(bb) == Blocks.AIR) return false;
         }
         return true;
