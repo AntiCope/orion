@@ -31,6 +31,7 @@ import java.util.*;
 
 public class PopCounter extends Module {
 
+
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgAutoEz = settings.createGroup("AutoEz");
     private final SettingGroup sgMessages = settings.createGroup("Messages");
