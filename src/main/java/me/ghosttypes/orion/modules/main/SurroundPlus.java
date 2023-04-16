@@ -20,7 +20,7 @@ import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,18 +51,18 @@ public class SurroundPlus extends Module {
     private final Setting<SettingColor> sideColor = sgRender.add(new ColorSetting.Builder().name("side-color").description("The side color.").defaultValue(new SettingColor(15, 255, 211,75)).build());
     private final Setting<SettingColor> lineColor = sgRender.add(new ColorSetting.Builder().name("line-color").description("The line color.").defaultValue(new SettingColor(15, 255, 211)).build());
 
-    private final ArrayList<Vec3d> surr = new ArrayList<Vec3d>() {{
-        add(new Vec3d(1, 0, 0));
-        add(new Vec3d(-1, 0, 0));
-        add(new Vec3d(0, 0, 1));
-        add(new Vec3d(0, 0, -1));
+    private final ArrayList<Vec3i> surr = new ArrayList<Vec3i>() {{
+        add(new Vec3i(1, 0, 0));
+        add(new Vec3i(-1, 0, 0));
+        add(new Vec3i(0, 0, 1));
+        add(new Vec3i(0, 0, -1));
     }};
 
-    private final ArrayList<Vec3d> surrDouble = new ArrayList<Vec3d>() {{
-        add(new Vec3d(1, 1, 0));
-        add(new Vec3d(-1, 1, 0));
-        add(new Vec3d(0, 1, 1));
-        add(new Vec3d(0, 1, -1));
+    private final ArrayList<Vec3i> surrDouble = new ArrayList<Vec3i>() {{
+        add(new Vec3i(1, 1, 0));
+        add(new Vec3i(-1, 1, 0));
+        add(new Vec3i(0, 1, 1));
+        add(new Vec3i(0, 1, -1));
     }};
 
 
@@ -88,9 +88,9 @@ public class SurroundPlus extends Module {
             }
         } else {
             BlockPos ppos = mc.player.getBlockPos();
-            for (Vec3d b : getSurrDesign()) {
+            for (Vec3i b : getSurrDesign()) {
                 if (bpt >= blockPerTick.get()) return;
-                BlockPos bb = ppos.add(b.x, b.y, b.z);
+                BlockPos bb = ppos.add(b.getX(), b.getY(), b.getZ());
                 if (BlockHelper.getBlock(bb) == Blocks.AIR) {
                     if (placeInside.get()) {
                         BlockUtils.place(bb, InvUtils.findInHotbar(itemStack -> blocks.get().contains(Block.getBlockFromItem(itemStack.getItem()))), rotation.get(), 100, false);
@@ -115,16 +115,16 @@ public class SurroundPlus extends Module {
         }
     }
 
-    private ArrayList<Vec3d> getSurrDesign() {
-        ArrayList<Vec3d> surrDesign = new ArrayList<Vec3d>(surr);
+    private ArrayList<Vec3i> getSurrDesign() {
+        ArrayList<Vec3i> surrDesign = new ArrayList<Vec3i>(surr);
         if (useDouble.get()) surrDesign.addAll(surrDouble);
         return surrDesign;
     }
 
     private boolean isDangerousCrystal(BlockPos bp) {
         BlockPos ppos = mc.player.getBlockPos();
-        for (Vec3d b : getSurrDesign()) {
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+        for (Vec3i b : getSurrDesign()) {
+            BlockPos bb = ppos.add(b.getX(), b.getY(), b.getZ());
             if (!bp.equals(bb) && BlockHelper.distanceBetween(bb, bp) <= 2) return true;
         }
         return false;
@@ -143,8 +143,8 @@ public class SurroundPlus extends Module {
     private void onRender(Render3DEvent event) {
         if (render.get()) {
             BlockPos ppos = mc.player.getBlockPos();
-            for (Vec3d b: getSurrDesign()) {
-                BlockPos bb = ppos.add(b.x, b.y, b.z);
+            for (Vec3i b: getSurrDesign()) {
+                BlockPos bb = ppos.add( b.getX(), b.getY(), b.getZ());
                 if (BlockHelper.getBlock(bb) == Blocks.AIR) event.renderer.box(bb, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
                 if (alwaysRender.get()) event.renderer.box(bb, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
             }

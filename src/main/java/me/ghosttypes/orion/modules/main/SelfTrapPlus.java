@@ -17,7 +17,7 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,19 +56,19 @@ public class SelfTrapPlus extends Module {
     private BlockPos startPos;
     private int bpt;
 
-    private final ArrayList<Vec3d> full = new ArrayList<Vec3d>() {{
-        add(new Vec3d(0, 2, 0));
-        add(new Vec3d(1, 1, 0));
-        add(new Vec3d(-1, 1, 0));
-        add(new Vec3d(0, 1, 1));
-        add(new Vec3d(0, 1, -1));
+    private final ArrayList<Vec3i> full = new ArrayList<Vec3i>() {{
+        add(new Vec3i(0, 2, 0));
+        add(new Vec3i(1, 1, 0));
+        add(new Vec3i(-1, 1, 0));
+        add(new Vec3i(0, 1, 1));
+        add(new Vec3i(0, 1, -1));
     }};
 
-    private final ArrayList<Vec3d> antiFacePlace = new ArrayList<Vec3d>() {{
-        add(new Vec3d(1, 1, 0));
-        add(new Vec3d(-1, 1, 0));
-        add(new Vec3d(0, 1, 1));
-        add(new Vec3d(0, 1, -1));
+    private final ArrayList<Vec3i> antiFacePlace = new ArrayList<Vec3i>() {{
+        add(new Vec3i(1, 1, 0));
+        add(new Vec3i(-1, 1, 0));
+        add(new Vec3i(0, 1, 1));
+        add(new Vec3i(0, 1, -1));
     }};
 
 
@@ -92,10 +92,10 @@ public class SelfTrapPlus extends Module {
         if (BlockHelper.isVecComplete(getTrapDesign()) && turnOff.get()) { info("Finished self trap."); toggle(); return;}
         if (toggleOnMove.get() && startPos != mc.player.getBlockPos()) { toggle(); return; }
         if (onlyInHole.get() && !Wrapper.isInHole(mc.player)) { toggle(); return; }
-        for (Vec3d b : getTrapDesign()) {
+        for (Vec3i b : getTrapDesign()) {
             if (bpt >= blockPerTick.get()) return;
             BlockPos ppos = mc.player.getBlockPos();
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add(b.getX(), b.getY(), b.getZ());
             if (BlockHelper.getBlock(bb) == Blocks.AIR) {
                 BlockUtils.place(bb, obsidian, rotate.get(), 100, true);
                 bpt++;
@@ -106,21 +106,21 @@ public class SelfTrapPlus extends Module {
     @EventHandler
     private void onRender(Render3DEvent event) {
         if (!render.get() || BlockHelper.isVecComplete(getTrapDesign())) return;
-        for (Vec3d b: getTrapDesign()) {
+        for (Vec3i b: getTrapDesign()) {
             BlockPos ppos = mc.player.getBlockPos();
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add(b.getX(), b.getY(), b.getZ());
             if (BlockHelper.getBlock(bb) == Blocks.AIR) event.renderer.box(bb, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
         }
     }
 
-    private ArrayList<Vec3d> getTrapDesign() {
-        ArrayList<Vec3d> trapDesign = new ArrayList<Vec3d>();
+    private ArrayList<Vec3i> getTrapDesign() {
+        ArrayList<Vec3i> trapDesign = new ArrayList<Vec3i>();
         switch (mode.get()) {
             case Full -> { trapDesign.addAll(full); }
-            case Top -> { trapDesign.add(new Vec3d(0, 2, 0)); }
+            case Top -> { trapDesign.add(new Vec3i(0, 2, 0)); }
             case AntiFacePlace -> { trapDesign.addAll(antiFacePlace); }
         }
-        if (antiCev.get()) { trapDesign.add(new Vec3d(0, 3, 0));}
+        if (antiCev.get()) { trapDesign.add(new Vec3i(0, 3, 0));}
         return trapDesign;
     }
 }
