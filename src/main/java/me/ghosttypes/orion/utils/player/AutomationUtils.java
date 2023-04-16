@@ -11,6 +11,7 @@ import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;
 
@@ -18,11 +19,11 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class AutomationUtils {
 
-    public static ArrayList<Vec3d> surroundPositions = new ArrayList<Vec3d>() {{
-        add(new Vec3d(1, 0, 0));
-        add(new Vec3d(-1, 0, 0));
-        add(new Vec3d(0, 0, 1));
-        add(new Vec3d(0, 0, -1));
+    public static ArrayList<Vec3i> surroundPositions = new ArrayList<>() {{
+        add(new Vec3i(1, 0, 0));
+        add(new Vec3i(-1, 0, 0));
+        add(new Vec3i(0, 0, 1));
+        add(new Vec3i(0, 0, -1));
     }};
 
 
@@ -57,8 +58,8 @@ public class AutomationUtils {
 
     public static boolean canCrystal(PlayerEntity p) {
         BlockPos tpos = p.getBlockPos();
-        for (Vec3d sp : surroundPositions) {
-            BlockPos sb = tpos.add(sp.x, sp.y, sp.z);
+        for (Vec3i sp : surroundPositions) {
+            BlockPos sb = tpos.add(sp.getX(), sp.getY(), sp.getZ());
             if (BlockHelper.getBlock(sb) == Blocks.AIR) return true;
         }
         return false;

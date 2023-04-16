@@ -16,6 +16,7 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;
 
@@ -36,9 +37,9 @@ public class BedDisabler extends Module {
     private int wpt, delayTimer;
 
 
-    private final ArrayList<Vec3d> places = new ArrayList<Vec3d>() {{
-        add(new Vec3d(0, 1, 0));
-        add(new Vec3d(0, 2, 0));
+    private final ArrayList<Vec3i> places = new ArrayList<>() {{
+        add(new Vec3i(0, 1, 0));
+        add(new Vec3i(0, 2, 0));
     }};
 
 
@@ -79,12 +80,12 @@ public class BedDisabler extends Module {
 
     private void doPlace(FindItemResult string) {
         wpt = 0;
-        ArrayList<Vec3d> p = new ArrayList<Vec3d>(places);
-        if (!ignoreFeet.get()) p.add(new Vec3d(0, 0, 0));
+        ArrayList<Vec3i> p = new ArrayList<>(places);
+        if (!ignoreFeet.get()) p.add(new Vec3i(0, 0, 0));
         BlockPos ppos = mc.player.getBlockPos();
-        for (Vec3d b: p) {
+        for (Vec3i b: p) {
             if (wpt >= webPerTick.get()) break;
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+            BlockPos bb = ppos.add(b.getX(), b.getY(), b.getZ());
             BlockUtils.place(bb, string, 50, false);
             wpt++;
         }
