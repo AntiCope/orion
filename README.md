@@ -22,7 +22,7 @@
 # How to use
 Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Latest version of [Meteor Client](https://meteorclient.com)
 
-Launch fabric loader for 1.18.x.
+Launch fabric loader for 1.19.x.
 
 # Discord
 GhostTypes has retired from both Orion and Ion. Ion went to new ownership, and Orion has been left unmaintained.
