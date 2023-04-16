@@ -257,12 +257,12 @@ public class AnchorAura extends Module {
         return null;
     }
 
-    private boolean getDamagePlace(BlockPos pos) {
-        return placeMode.get() == Safety.Suicide || DamageUtils.bedDamage(mc.player, Utils.vec3d(pos.add(0.5, 0.5, 0.5))) <= maxDamage.get();
+    private boolean getDamagePlace(BlockPos pos) { // Thanks Crosby :)
+        return placeMode.get() == Safety.Suicide || DamageUtils.bedDamage(mc.player, Utils.vec3d(pos).add(0.5, 0.5, 0.5)) <= maxDamage.get();
     }
 
-    private boolean getDamageBreak(BlockPos pos) {
-        return breakMode.get() == Safety.Suicide || DamageUtils.anchorDamage(mc.player, Utils.vec3d(pos.add(0.5, 0.5, 0.5))) <= maxDamage.get();
+    private boolean getDamageBreak(BlockPos pos) {  // Thanks Crosby :)
+        return breakMode.get() == Safety.Suicide || DamageUtils.anchorDamage(mc.player, Utils.vec3d(pos).add(0.5, 0.5, 0.5)) <= maxDamage.get();
     }
 
     private boolean isValidPlace(BlockPos pos) {

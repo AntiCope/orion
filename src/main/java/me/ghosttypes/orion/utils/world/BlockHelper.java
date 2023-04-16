@@ -5,10 +5,7 @@ import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,10 +17,10 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class BlockHelper {
 
 
-    public static boolean isVecComplete(ArrayList<Vec3d> vlist) {
+    public static boolean isVecComplete(ArrayList<Vec3i> vlist) {
         BlockPos ppos = mc.player.getBlockPos();
-        for (Vec3d b: vlist) {
-            BlockPos bb = ppos.add(b.x, b.y, b.z);
+        for (Vec3i b: vlist) {
+            BlockPos bb = ppos.add(b.getX(), (int) b.getY(), (int) b.getZ());
             if (getBlock(bb) == Blocks.AIR) return false;
         }
         return true;
