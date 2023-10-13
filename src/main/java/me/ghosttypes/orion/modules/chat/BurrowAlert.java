@@ -4,7 +4,6 @@ import me.ghosttypes.orion.Orion;
 import me.ghosttypes.orion.utils.Wrapper;
 import me.ghosttypes.orion.utils.player.AutomationUtils;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;

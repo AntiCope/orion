@@ -5,7 +5,10 @@ import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;
 import java.util.Comparator;

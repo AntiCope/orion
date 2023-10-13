@@ -1,17 +1,16 @@
 package me.ghosttypes.orion.modules.hud;
 
+import me.ghosttypes.orion.Orion;
 import meteordevelopment.meteorclient.renderer.GL;
 import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.systems.hud.HudElement;
 import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
+import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.utils.Utils;
 import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.util.Identifier;
-
-import me.ghosttypes.orion.Orion;
 
 public class Logo extends HudElement {
     public static final HudElementInfo<Logo> INFO = new HudElementInfo<>(Orion.HUD_GROUP, "Orion-logo", "Displays the Orion logo.", Logo::new);

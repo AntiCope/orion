@@ -2,7 +2,6 @@ package me.ghosttypes.orion.utils.player;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;

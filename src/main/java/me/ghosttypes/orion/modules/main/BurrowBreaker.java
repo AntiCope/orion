@@ -16,9 +16,9 @@ import meteordevelopment.meteorclient.utils.player.FindItemResult;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.block.ButtonBlock;
 import net.minecraft.block.AbstractPressurePlateBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.ButtonBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
