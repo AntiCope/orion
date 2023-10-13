@@ -20,7 +20,7 @@ public class Orion extends MeteorAddon {
 	public static final Logger LOG = LogUtils.getLogger();
 	public static final Category CATEGORY = new Category("Orion", Items.OBSIDIAN.getDefaultStack());
     public static final HudGroup HUD_GROUP = new HudGroup("Orion");
-	public static final String VERSION = "0.1";
+	public static final String VERSION = "0.2";
 
 	@Override
 	public void onInitialize() {
