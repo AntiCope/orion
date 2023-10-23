@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.EnderChestBlock;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.entity.decoration.EndCrystalEntity;
 import net.minecraft.item.*;
 
 import java.util.ArrayList;

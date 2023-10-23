@@ -1,6 +1,5 @@
 package me.ghosttypes.orion;
 
-
 import com.mojang.logging.LogUtils;
 import me.ghosttypes.orion.modules.chat.*;
 import me.ghosttypes.orion.modules.hud.Logo;
@@ -9,22 +8,19 @@ import me.ghosttypes.orion.modules.main.*;
 import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.systems.Systems;
-import meteordevelopment.meteorclient.systems.modules.Category;
-import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
-
-import org.slf4j.Logger;
-
+import meteordevelopment.meteorclient.systems.modules.Category;
+import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Items;
-
+import org.slf4j.Logger;
 
 public class Orion extends MeteorAddon {
 	public static final Logger LOG = LogUtils.getLogger();
 	public static final Category CATEGORY = new Category("Orion", Items.OBSIDIAN.getDefaultStack());
     public static final HudGroup HUD_GROUP = new HudGroup("Orion");
-	public static final String VERSION = "0.1";
+	public static final String VERSION = "0.2";
 
 	@Override
 	public void onInitialize() {

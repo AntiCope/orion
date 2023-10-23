@@ -22,14 +22,14 @@
 # How to use
 Download the [latest release](https://github.com/AntiCope/orion/releases/latest) and put it in your mods folder with Latest version of [Meteor Client](https://meteorclient.com)
 
-Launch fabric loader for 1.19.x.
+Launch fabric loader for 1.20.x.
 
 # Discord
 GhostTypes has retired from both Orion and Ion. Ion went to new ownership, and Orion has been left unmaintained.
 
 # Suggestions & Bugs
 If you have a suggestion, please check if the feature already exists before making a suggestion.
-If you have a bug to report, please makesure you have the latest dev build of both Meteor and Orion.
+If you have a bug to report, please make sure you have the latest dev build of both Meteor and Orion.
 
 To top it all off, please provide as much information as you can (eg. Screenshots, Version, Settings/Configs, Crash reports/logs).
 
@@ -57,11 +57,6 @@ To top it all off, please provide as much information as you can (eg. Screenshot
 
 ### Hud
 - Welcome Message
-- Item Counter
-	- Beds
-	- Crystals
-	- Golden Apples
-	- Experience Bottles
 - Kill Counter
 - Killstreak Counter
 - Death Counter
